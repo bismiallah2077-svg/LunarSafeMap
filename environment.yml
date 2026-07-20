@@ -1,0 +1,24 @@
+name: lunarsafe
+channels:
+  - defaults
+dependencies:
+  - pytest
+  - scikit-learn
+  - pandas
+  - gdal
+  - matplotlib
+  - opencv
+  - geopandas
+  - python=3.12
+  - pyproj
+  - scikit-image
+  - jupyterlab
+  - tqdm
+  - rasterio
+  - xarray
+  - numpy
+  - rioxarray
+  - pyyaml
+  - shapely
+  - scipy
+prefix: /home/zwx/miniconda3/envs/lunarsafe
