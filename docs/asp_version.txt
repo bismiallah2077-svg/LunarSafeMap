@@ -1,0 +1,11 @@
+NASA Ames Stereo Pipeline 3.7.0
+  Build ID: 3d1953916
+  Build date: 2026-06-09
+
+Built against:
+  NASA Vision Workbench 3.7.0
+    Build ID: db76af6f
+  USGS ISIS 10.0.0
+  Boost C++ Libraries 1.88.0
+  GDAL 3.12.2 | 20260203
+
