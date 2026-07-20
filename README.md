@@ -1,2 +1,0 @@
-# LunarSafeMap
-prepare for moon
