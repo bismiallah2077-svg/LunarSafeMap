@@ -22,10 +22,14 @@ The current stage focuses on a minimal lunar stereo photogrammetry baseline with
 ### Python geospatial environment
 
 Used for raster processing, GIS, terrain analysis, and later machine learning.
-
-```bash
-conda activate lunarsafe
-Research Direction
+ASP environment
+Used for lunar stereo reconstruction and DEM generation.
+conda activate asp
+Verified version:
+NASA Ames Stereo Pipeline 3.7.0
+USGS ISIS 10.0.0
+GDAL 3.12.2
+##Research Direction
 The next goal is to move from tool reproduction to a research-oriented workflow:
 DEM quality assessment
 Slope and roughness calculation
@@ -35,3 +39,6 @@ Uncertainty analysis of terrain-derived safety maps
 Data Policy
 Large planetary data products are not committed to Git.
 Raw data, intermediate products, ASP outputs, and model weights should remain outside the repository or be documented through metadata and download instructions.
+```bash
+conda activate lunarsafe
+
