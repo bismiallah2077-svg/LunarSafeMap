@@ -10,6 +10,7 @@ conda-env/
 data/raw/
 data/interim/
 data/processed/
+data/metadata/references/
 logs/
 scripts/tools/
 *.tar
