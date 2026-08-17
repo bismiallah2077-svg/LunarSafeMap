@@ -1,0 +1,33 @@
+# LunarSafeMap data configuration
+# Region: ASP LRO NAC quick-example site (15.31 E, -9.61 S) for week 2-3;
+#         Rimae Bode (356 E, 12 N) tiles staged for week 4.
+
+region:
+  name: lronac_quick_site
+  lon_center: 15.31
+  lat_center: -9.61
+
+data_roots:
+  raw: data/raw
+  metadata: data/metadata
+  samples: data/samples
+
+lroc:
+  pair:
+    - M181058717LE
+    - M181073012LE
+  edr_url: https://pds.lroc.im-ldi.com/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0010/DATA/SCI/2012013/NAC
+  acquisition: "2012-01-13"
+  note: PDS3 attached labels; volume LROLRC_0010
+
+sldem2015:
+  source: http://imbrium.mit.edu/DATA/SLDEM2015/TILES/FLOAT_IMG
+  tiles:
+    current_site: SLDEM2015_512_30S_00S_000_045_FLOAT.IMG
+    rimae_bode: SLDEM2015_512_00N_30N_315_360_FLOAT.IMG
+  ppd: 512
+
+processing:
+  map_projection: simplecyl
+  map_resolution_m: 4
+  dem_ref: SLDEM2015
