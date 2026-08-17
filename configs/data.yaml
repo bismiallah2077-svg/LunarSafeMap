@@ -1,16 +1,24 @@
 # LunarSafeMap data configuration
-# Region: ASP LRO NAC quick-example site (15.31 E, -9.61 S) for week 2-3;
-#         Rimae Bode (356 E, 12 N) tiles staged for week 4.
+# Week 4 region: Rimae Bode (Yang et al. 2026, Nat. Astron.)
 
 region:
-  name: lronac_quick_site
-  lon_center: 15.31
-  lat_center: -9.61
+  name: rimae_bode
+  # Paper study area: 8-13 N, 1-7 W  ==  353-359 E
+  bbox_east_360:
+    lon_min: 353.0
+    lon_max: 359.0
+    lat_min: 8.0
+    lat_max: 13.0
+  lon_center: 356.0
+  lat_center: 10.5
+  note: "Yang, Huang, Iqbal et al. 2026, Nature Astronomy, doi:10.1038/s41550-026-02790-0"
 
 data_roots:
   raw: data/raw
   metadata: data/metadata
   samples: data/samples
+  interim: data/interim/week4
+  output: outputs/week4
 
 lroc:
   pair:
@@ -18,7 +26,7 @@ lroc:
     - M181073012LE
   edr_url: https://pds.lroc.im-ldi.com/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0010/DATA/SCI/2012013/NAC
   acquisition: "2012-01-13"
-  note: PDS3 attached labels; volume LROLRC_0010
+  note: PDS3 attached labels; volume LROLRC_0010; week 2-3 quick-example site
 
 sldem2015:
   source: http://imbrium.mit.edu/DATA/SLDEM2015/TILES/FLOAT_IMG
@@ -26,8 +34,20 @@ sldem2015:
     current_site: SLDEM2015_512_30S_00S_000_045_FLOAT.IMG
     rimae_bode: SLDEM2015_512_00N_30N_315_360_FLOAT.IMG
   ppd: 512
+  resolution_m_equator: 60
+  projection: simple_cylindrical
+  radius_km: 1737.4
+  unit: km
+  crs: "Moon 2000 (DE421), simple cylindrical, pixel-registered"
+
+wac:
+  # LROC WAC global mosaic (100 m/px) or WAC EDR covering the study area;
+  # download script will fill the exact tile id.
+  source: https://pds.lroc.asu.edu
+  note: Pending week-4 WAC tile selection (study area 8-13N, 353-359E)
 
 processing:
   map_projection: simplecyl
   map_resolution_m: 4
   dem_ref: SLDEM2015
+  study_area_resolution_m: 60
