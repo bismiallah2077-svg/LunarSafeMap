@@ -14,6 +14,7 @@ resolution, crs, file, size_bytes, sha256, notes.
 import argparse
 import csv
 import hashlib
+import json
 import re
 from pathlib import Path
 
@@ -153,6 +154,28 @@ def main():
                           f"{_size_note(img, meta['expected'])}"),
             })
 
+        # GeoTIFF products with a JSON provenance sidecar (e.g. WAC via WMS)
+        for tif in sorted(sub.glob("*.tif")):
+            side = tif.with_suffix(".json")
+            meta = {}
+            if side.exists():
+                meta = json.loads(side.read_text(encoding="utf-8"))
+            rows.append({
+                "product_id": meta.get("product_id", tif.stem),
+                "type": sub.name,
+                "source_url": meta.get("source_url", ""),
+                "acquisition_time": "",
+                "resolution": (f"{meta['target_resolution_m']:.0f} m/px"
+                               if meta.get("target_resolution_m") else ""),
+                "crs": meta.get("crs_note", "GeoTIFF"),
+                "file": str(tif.relative_to(raw.parent)),
+                "size_bytes": tif.stat().st_size,
+                "sha256": "" if args.no_hash else sha256(tif),
+                "notes": (f"instrument={meta.get('instrument','')}; "
+                          f"layer={meta.get('layer','')}; "
+                          f"bbox={meta.get('bbox_lonlat','')}; "
+                          f"size={tif.stat().st_size} B"),
+            })
         # Attached-label products (e.g. LROC NAC EDR)
         for img in sorted(sub.glob("*.IMG")):
             if img.stem in parsed_stems:
@@ -190,7 +213,6 @@ def main():
     for r in rows:
         if "PARTIAL" in r["notes"]:
             print(f"  ! {r['product_id']}: {r['notes'].split(';')[-1].strip()}")
-
 
 
 if __name__ == "__main__":

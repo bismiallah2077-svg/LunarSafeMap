@@ -1,4 +1,15 @@
-# Candidate landing sites proposed by Yang et al. 2026 (Nat. Astron.).
-# Coordinates TBD: paper locates sites 1-4 in Fig. 5; fill lon/lat (deg E, N)
-# after reading them from the figure or the paper's supplementary data.
+# Candidate landing sites (Yang et al. 2026, Nature Astronomy) and landmark
+# craters used for orientation. Longitude is degrees EAST (355.23E = 4.77W).
+#
+# Landmark craters come from the paper's Supplementary Table 1.
+# site3 is derived from the paper text ("~6 km east of Bode C crater");
+# 6 km at 12N equals 6/30.32 = 0.198 deg of longitude.
+# site1, site2 and site4 still need to be read off Fig. 5 (each panel is a
+# local map with coordinate axes) - fill lon/lat and delete the note.
 label,lon,lat,note
+Bode_C,355.23,12.22,landmark; supplement: 12.22N 4.77W
+Fresh_crater,355.57,11.46,landmark; supplement: 11.46N 4.43W
+site3,355.43,12.22,APPROX ~6 km east of Bode C (derived); verify on Fig. 5c
+site1,,,placeholder: N of large crater wall at Sinus Aestuum / DMD boundary (Fig. 5a)
+site2,,,placeholder: S of Rima Bode II mare unit, high-Th basalt (Fig. 5b)
+site4,,,placeholder: NW of Rima Bode I basalt unit (Fig. 5d)

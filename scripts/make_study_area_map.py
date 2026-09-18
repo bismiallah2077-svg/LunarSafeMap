@@ -79,6 +79,8 @@ def main() -> None:
         ]
         if len(rows) > 1:
             for row in csv.DictReader(rows):
+                if not row.get("lon", "").strip() or not row.get("lat", "").strip():
+                    continue  # placeholder row, coordinates not filled in yet
                 ax.plot(
                     float(row["lon"]),
                     float(row["lat"]),

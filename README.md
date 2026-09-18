@@ -20,14 +20,18 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
 - **Result**: systematic vertical offset ≈ −264 m (datum mismatch); detrended RMSE ≈ 23 m
 - See [docs/reproduction.md](docs/reproduction.md) for the full report
 
-### Week 4 (in progress): Rimae Bode Study Area
+### Week 4: Rimae Bode Study Area (WAC + DEM foundation)
 
 - Study area fixed from Yang et al. 2026: 8°N–13°N, 353°E–359°E
-- SLDEM2015 tile `SLDEM2015_512_00N_30N_315_360_FLOAT` (512 ppd, ~60 m/px) downloading with resume support
-- Resumable downloader: [scripts/download_sldem.sh](scripts/download_sldem.sh)
-- Study-area crop + km→m conversion: [scripts/preprocess_week4.py](scripts/preprocess_week4.py)
-- Base map: [scripts/make_study_area_map.py](scripts/make_study_area_map.py)
-- Manifest builder (attached + detached PDS3 labels): [scripts/build_data_manifest.py](scripts/build_data_manifest.py)
+- **LROC WAC mosaic** for the study area (100 m/px) pulled in one request from the
+  USGS Moon WMS — [scripts/download_wac.py](scripts/download_wac.py)
+- **SLDEM2015 tile** `SLDEM2015_512_00N_30N_315_360_FLOAT` (512 ppd, ~59 m/px,
+  1.42 GB) downloaded complete with resume support — [scripts/download_sldem.sh](scripts/download_sldem.sh)
+- Study-area DEM crop + km→m conversion (3073 × 2561 px) — [scripts/preprocess_week4.py](scripts/preprocess_week4.py)
+- Lunar CRS for the WMS WAC GeoTIFF — [scripts/preprocess_wac.py](scripts/preprocess_wac.py)
+- Base map with landmarks — [scripts/make_study_area_map.py](scripts/make_study_area_map.py)
+- Manifest builder (attached + detached PDS3 labels, **size verification**) —
+  [scripts/build_data_manifest.py](scripts/build_data_manifest.py)
 - See [docs/week4_study_area.md](docs/week4_study_area.md) for details
 
 ## Environments
@@ -59,11 +63,13 @@ bash scripts/run_week2_3.sh
 
 Outputs land in `outputs/week23/`; error statistics in `dem_error_summary.csv` and `error_vs_covariates.csv`.
 
-Week 4 (once the SLDEM tile is downloaded):
+Week 4 (study-area foundation):
 
 ```bash
+python scripts/download_wac.py --bbox "353 8 359 13" --res 100
 bash scripts/download_sldem.sh SLDEM2015_512_00N_30N_315_360_FLOAT.IMG data/raw/sldem2015
 python scripts/preprocess_week4.py --bbox "353 8 359 13"
+python scripts/preprocess_wac.py
 python scripts/make_study_area_map.py
 python scripts/build_data_manifest.py data/raw data/metadata/data_manifest.csv
 ```
