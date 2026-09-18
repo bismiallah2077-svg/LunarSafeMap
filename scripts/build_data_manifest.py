@@ -192,5 +192,6 @@ def main():
             print(f"  ! {r['product_id']}: {r['notes'].split(';')[-1].strip()}")
 
 
+
 if __name__ == "__main__":
     main()
