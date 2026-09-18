@@ -103,4 +103,6 @@ in its PDS label and prints `size=complete` / `size=PARTIAL x/y`:
   selected through the browser UI or by another archive route.
 - **Candidate landing sites** — site 3 is derived (~6 km east of Bode C,
   355.43°E 12.22°N); sites 1, 2 and 4 are placeholders to be read off Fig. 5.
-- Tile index (`build_tiles.py`) once the imagery stack is complete.
+- Tile index: `outputs/week4/tile_index.csv` (30 tiles of 512 px / ~30.3 km, with elevation and slope statistics) via `scripts/build_tiles.py`.
+- NAC download helper for the pair you pick in QuickMap: `scripts/fetch_nac.py`.
+- Human-in-the-loop steps are listed in [manual_checklist_CN.md](manual_checklist_CN.md).
