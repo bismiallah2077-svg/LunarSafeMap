@@ -10,9 +10,11 @@ conda-env/
 data/raw/
 data/interim/
 data/processed/
+data/metadata/references/
 logs/
 scripts/tools/
 *.tar
+examples/lronac_quick/LRONAC_example/run/
 
 *.IMG
 *.img
@@ -24,6 +26,9 @@ scripts/tools/
 *.npy
 *.npz
 print.prt
+
+*.aux.xml
+*.msk
 
 *-PC.tif
 *-DEM.tif
