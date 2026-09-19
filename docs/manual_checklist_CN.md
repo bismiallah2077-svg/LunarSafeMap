@@ -44,36 +44,41 @@
 
 ## A2. 挑 NAC 立体像对（10 分钟）
 
-**入口一（推荐）：LROC 影像检索页** <https://wms.lroc.asu.edu/lroc/search>
+检索入口：<https://data.lroc.im-ldi.com/lroc/search>
 
-页面上有两组表单，用带经纬度过滤的那组（字段已从页面源码确认）：
+**先分清两组筛选器**（表单字段已从页面源码逐项核对）：
 
-1. 填经纬度：`West = -7`、`East = -1`、`South = 8`、`North = 13`
-   （西经用负值。若结果为空，再试 `353 / 359` 的写法。）
-2. `Product type` 勾选 **NAC Left** 与 **NAC Right**（取值是 `NACL` / `NACR`）。
-3. 点 Search，得到产品列表与足迹；逐个记录 **产品 ID** 和 **下载链接**。
-4. 按下面的标准挑出成对的左右影像。
-
-**入口二（QuickMap，仅用于看影像）** <https://quickmap.lroc.asu.edu/>
-
-> 更正：QuickMap 的图层面板里**没有** `NAC Footprints` 这一项（我此前写错了）。
-> 查过程序源码后确认：QuickMap 的图层名是 **`NAC Results`**，它是**检索结果图层**，
-> 只有在执行产品检索之后才会出现；结果列表里另有一个 `Show product footprints`
-> 开关用来显示/隐藏足迹。也就是说 QuickMap 负责"看图"，检索建议走入口一。
-
-**挑选标准**（决定后续 DEM 质量）
-
-| 指标 | 目标值 | 原因 |
+| 字段 | 取值 | 含义 |
 |---|---|---|
-| 两次过境 roll 差 / 交会角 | 15°–30° | 太小基线短、高程精度差；太大匹配失败多 |
-| 重叠 | > 60% | 保证足够公共区域 |
-| incidence angle（入射角） | 20°–60° | 太小无立体感，太大阴影过重 |
-| emission angle（出射角） | < 20° | 保证近似正射 |
-| 分辨率 | 两者接近 | 避免尺度不匹配 |
-| 光照方位 | 两景有差异 | 匹配更稳，但别一景全阴影 |
+| Product Type | All / CDR / EDR | 数据处理级别（EDR 原始，CDR 定标后） |
+| **Observation Type** | All / **NACL** / **NACR** / WAC_COLOR / WAC_MONO / WAC_UV / WAC_VIS | 相机与通道——**挑 NAC 像对要用这组** |
+| West / East / South / North | 数值 | 检索范围（东经用 0–360） |
+| Slew Min / Max（可勾 Absolute Value） | 数值 | 侧摆角，**这是控制交会角的关键** |
+| Incidence / Emission Min / Max | 数值 | 光照与观测几何 |
+| Resolution / Orbit / 日期范围 | 数值 | 其他约束 |
+| Products Per Page | 10–100 | 一次列出多少条 |
 
-把产品 ID 或下载链接发我，我用 `scripts/fetch_nac.py` 批量拉取（自动校验完整性），
-再接 ISIS → ASP 流水线。
+**推荐检索参数**
+
+1. 经纬度框：**开小框**，以目标点为中心，例如
+   `West 354.75 / East 354.87 / South 9.82 / North 9.94`
+   （约 0.12° ≈ 3.6 km 见方。框太大时命中反而少，因为需要影像覆盖整个框。）
+2. Observation Type：勾 **NACL**（必要时再加 NACR）
+3. Product Type：**EDR**
+4. Products Per Page：100，Show Thumbnails：yes
+5. 先不加 slew 限制看总数；结果少就把框再开小一点。
+
+**找搭档的量化目标**：以 M1406995626LE（侧摆角 +16.10°）为主片，
+第二景的 **Slew 应落在 −14° ~ +1°**（差值 15–30°，交会角即落入最佳区间）。
+可以直接把 `Slew Min = -14`、`Slew Max = 1` 填进筛选器。
+
+**拿不准就用校验工具**：
+
+```bash
+python scripts/stereo_check.py M1406995626LE <候选ID>
+```
+
+输出交会角、入射/出射角、分辨率与中心间距，并给出"是否可用"的结论。
 ## A3. QGIS 视觉质检（每周 5 分钟）
 
 在 QGIS 里打开这几个文件，确认下面的事情：
