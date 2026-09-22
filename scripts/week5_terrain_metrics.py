@@ -63,6 +63,33 @@ def read_dem(path):
     return z, valid, px
 
 
+def nac_footprint_on(path_dem_like, nac_path):
+    """Return a boolean mask on the grid of path_dem_like marking the area
+    covered by the NAC DEM, so both DEMs can be compared over the same ground."""
+    ref = open_raster(path_dem_like)
+    gt = ref.GetGeoTransform()
+    w, h = ref.RasterXSize, ref.RasterYSize
+    nac = open_raster(nac_path)
+    band = nac.GetRasterBand(1)
+    nodata = band.GetNoDataValue()
+    z = band.ReadAsArray().astype("float32")
+    ok = np.isfinite(z)
+    if nodata is not None:
+        ok &= z != nodata
+    tmp = OUT / "_nac_mask.tif"
+    drv = gdal.GetDriverByName("GTiff")
+    ds = drv.Create(str(tmp), ok.shape[1], ok.shape[0], 1, gdal.GDT_Byte)
+    ds.SetGeoTransform(nac.GetGeoTransform())
+    ds.SetProjection(nac.GetProjection())
+    ds.GetRasterBand(1).WriteArray(ok.astype("uint8"))
+    ds = None
+    warped = OUT / "_nac_mask_on_ref.tif"
+    gdal.Warp(str(warped), str(tmp), width=w, height=h,
+              outputBounds=(gt[0], gt[3] + h * gt[5], gt[0] + w * gt[1], gt[3]),
+              dstSRS=ref.GetProjection(), resampleAlg="near")
+    m = gdal.Open(str(warped)).GetRasterBand(1).ReadAsArray() > 0
+    return m
+
 def block_mean(arr, valid, factor):
     ny, nx = arr.shape
     ny2, nx2 = (ny // factor) * factor, (nx // factor) * factor
@@ -112,8 +139,17 @@ def metrics_at_scale(z, valid, px, scale):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     rows = []
+    nac_path = DEMS["NAC_3.28m"]
     for name, path in DEMS.items():
         z, valid, px = read_dem(path)
+        if name != "NAC_3.28m":
+            try:
+                foot = nac_footprint_on(path, nac_path)
+                valid = valid & foot
+                print("  (restricted to the NAC stereo footprint: {:.1f}% of this DEM)"
+                      .format(100 * foot.mean()))
+            except Exception as exc:
+                print("  (footprint mask failed: {})".format(exc))
         print("")
         print("===== {}  ({:.3f} m/px, {}x{}) =====".format(name, px, z.shape[1], z.shape[0]))
         for scale in SCALES_M:
