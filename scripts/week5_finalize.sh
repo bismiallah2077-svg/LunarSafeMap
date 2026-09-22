@@ -9,6 +9,8 @@ echo "=== 1. copy files ==="
 cp -f $M/scripts/*.py $M/scripts/*.sh scripts/
 chmod +x scripts/*.py scripts/*.sh
 cp -f $M/docs/*.md docs/
+mkdir -p tests
+cp -f $M/tests/*.py tests/ 2>/dev/null || true
 cp -f $M/README.md README.md
 echo "  scripts: $(ls scripts | wc -l), docs: $(ls docs/*.md | wc -l)"
 
