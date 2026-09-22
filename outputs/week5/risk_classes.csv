@@ -1,0 +1,5 @@
+dem,support_m,slope_thr_deg,rough_thr_m,safe_pct,caution_pct,danger_pct,n_px
+NAC,19.7,15.0,2.0,50.94,22.89,26.17,443820
+NAC,59.09,15.0,2.0,51.98,23.19,24.83,48289
+SLDEM,59.22,15.0,2.0,59.96,21.78,18.26,7858689
+SLDEM_footprint,59.22,15.0,2.0,37.37,27.79,34.84,49739

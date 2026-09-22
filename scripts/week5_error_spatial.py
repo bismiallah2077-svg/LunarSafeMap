@@ -72,6 +72,16 @@ def bin_profile(resid, valid, axis, nbins=PROFILE_BINS):
             np.array(cnt))
 
 
+def profile_slope(position_km, med):
+    """Least squares slope of a binned profile, in m/km."""
+    m = np.isfinite(med)
+    if m.sum() < 2:
+        return float("nan")
+    A = np.column_stack([position_km[m], np.ones(int(m.sum()))])
+    coef, *_ = np.linalg.lstsq(A, med[m], rcond=None)
+    return float(coef[0])
+
+
 def coarse_grid(resid, valid, factor):
     """Median residual per factor x factor block (sparse blocks -> nan)."""
     ny, nx = resid.shape
@@ -181,11 +191,17 @@ def main():
     pf = plane_fit(grid, cell_m)
     if pf:
         gx_, gy_, c0 = pf
-        print("  fitted plane: {:+.3f} m/km along the long axis, {:+.3f} m/km across"
+        # xx = column index = across swath (short axis); yy = row index = along track
+        print("  fitted plane (coarse grid): {:+.3f} m/km across swath, {:+.3f} m/km along track"
               .format(gx_, gy_))
-        print("  -> end to end over {:.0f} km that is {:+.1f} m"
+        print("  -> across the {:.1f} km swath that is {:+.1f} m end to end"
               .format(grid.shape[1] * cell_m / 1000.0,
                       gx_ * grid.shape[1] * cell_m / 1000.0))
+        print("  -> along the {:.1f} km strip that is {:+.1f} m end to end"
+              .format(grid.shape[0] * cell_m / 1000.0,
+                      gy_ * grid.shape[0] * cell_m / 1000.0))
+        print("  cross-check from the 1-D profiles: across {:+.3f} m/km, along {:+.3f} m/km"
+              .format(profile_slope(width_km, med2), profile_slope(dist_km, med)))
 
     with (OUT / "error_spatial_grid.csv").open("w", newline="") as f:
         w = csv.writer(f)
