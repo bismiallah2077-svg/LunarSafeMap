@@ -1,0 +1,4 @@
+threshold_deg,nac_steeper_px,missed_by_sldem_px,pct_of_steep_missed,sldem_only_steep_px
+10.0,20872,2372,11.36,2348
+15.0,8824,1492,16.91,1400
+20.0,2251,701,31.14,693

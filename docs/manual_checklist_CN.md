@@ -117,8 +117,6 @@ python scripts/stereo_check.py M1406995626LE <候选ID>
 | PDS 标签的 `RECORD_BYTES × FILE_RECORDS` | 判断下载是否完整（清单脚本正是靠这个自动校验） |
 | SHA-256 + 溯源 | 科研可复现性的底线 |
 
----
-
 ## C. 已经完全自动化（你只需跑一条命令）
 
 ```bash
@@ -130,3 +128,38 @@ python scripts/make_study_area_map.py                             # 区域底图
 python scripts/build_tiles.py --tile-size 512                     # 切片索引
 python scripts/build_data_manifest.py data/raw data/metadata/data_manifest.csv
 ```
+
+---
+
+## D. 新增：处理任何年份的 LROC 影像前，必须先配内核（2026-09 新增）
+
+ISIS 自带的 LRO 内核库只覆盖到约 2019 年，**2020 年以后的 LROC 影像一律需要手动补三类内核**：
+
+| 角色 | 文件族 | 大小参考 | 从哪找 |
+|---|---|---|---|
+| 轨道（SPK） | `lrorg_YYYYDDD_YYYYDDD_v01.bsp` | ~7 MB / 90 天 | `naif.jpl.nasa.gov/pub/naif/pds/data/lro-l-spice-6-v1.0/lrosp_1000/data/spk/` |
+| 本体姿态（CK） | `lrosc_YYYYDDD_YYYYDDD_v01.bc` | ~500 MB / 10 天 | 同上，`.../data/ck/` |
+| 相机姿态（EXTRA） | `lrolc_YYYYDDD_YYYYDDD_v01.bc` | ~15 MB / 30 天 | `naif.jpl.nasa.gov/pub/naif/LRO/kernels/ck/` |
+
+⚠️ **容易认错的三个文件族**：`lrodv` = Diviner 辐射计、`lrohg` = 高增益天线、`lrosa` = 太阳翼。
+用它们会报 `ck rotation from frame -85000 can not be found`。
+
+调用方式（`CK=` 只能给一个文件，第二个用 `EXTRA=`）：
+
+```bash
+spiceinit from=cube.cub \
+  SPK="$ISISDATA/lro/kernels/spk/lrorg_YYYYDDD_YYYYDDD_v01.bsp" \
+  CK="$ISISDATA/lro/kernels/ck/lrosc_YYYYDDD_YYYYDDD_v01.bc" \
+  EXTRA="$ISISDATA/lro/kernels/ck/lrolc_YYYYDDD_YYYYDDD_v01.bc"
+```
+
+完整说明见 [lroc_spice_kernels.md](lroc_spice_kernels.md)。
+
+## E. 新增：中断后如何续跑（2026-09 新增）
+
+| 情况 | 处理 |
+|---|---|
+| ASP 跑到一半断电/重启 | **直接重跑同一条命令**，`parallel_stereo` 会跳过已完成的 tile |
+| ISIS 步骤中断 | 脚本按"输出文件是否存在"判断，会自动跳过已完成步骤 |
+| 怀疑某个 cube 写坏了 | 看文件大小是否明显偏小，删掉它再跑 |
+| 电脑自动重启 | 多半是 ASP 内存打满：把脚本里 `--processes 4` 调小（8 GB 内存用 2） |
