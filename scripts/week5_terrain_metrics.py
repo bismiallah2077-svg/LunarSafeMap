@@ -87,7 +87,11 @@ def nac_footprint_on(path_dem_like, nac_path):
     gdal.Warp(str(warped), str(tmp), width=w, height=h,
               outputBounds=(gt[0], gt[3] + h * gt[5], gt[0] + w * gt[1], gt[3]),
               dstSRS=ref.GetProjection(), resampleAlg="near")
-    m = gdal.Open(str(warped)).GetRasterBand(1).ReadAsArray() > 0
+    mask_ds = gdal.Open(str(warped))
+    if mask_ds is None or mask_ds.RasterCount < 1:
+        raise RuntimeError("could not open the warped NAC mask")
+    mask_band = mask_ds.GetRasterBand(1)
+    m = mask_band.ReadAsArray() > 0
     return m
 
 def block_mean(arr, valid, factor):
