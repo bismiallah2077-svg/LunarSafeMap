@@ -1,0 +1,6 @@
+quantity,value
+x_shift_m,-5.545
+y_shift_m,3.525
+bias_m,0.584
+rmse_before_shift_m,35.261
+rmse_after_shift_m,35.325

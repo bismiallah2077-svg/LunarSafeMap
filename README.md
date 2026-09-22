@@ -20,20 +20,33 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
 - **Result**: systematic vertical offset ≈ −264 m (datum mismatch); detrended RMSE ≈ 23 m
 - See [docs/reproduction.md](docs/reproduction.md) for the full report
 
-### Week 4: Rimae Bode Study Area (WAC + DEM foundation)
+### Week 4: Rimae Bode study area + first NAC stereo DEM
+
+**Study area & data foundation**
 
 - Study area fixed from Yang et al. 2026: 8°N–13°N, 353°E–359°E
-- **LROC WAC mosaic** for the study area (100 m/px) pulled in one request from the
-  USGS Moon WMS — [scripts/download_wac.py](scripts/download_wac.py)
-- **SLDEM2015 tile** `SLDEM2015_512_00N_30N_315_360_FLOAT` (512 ppd, ~59 m/px,
-  1.42 GB) downloaded complete with resume support — [scripts/download_sldem.sh](scripts/download_sldem.sh)
-- Study-area DEM crop + km→m conversion (3073 × 2561 px) — [scripts/preprocess_week4.py](scripts/preprocess_week4.py)
-- Lunar CRS for the WMS WAC GeoTIFF — [scripts/preprocess_wac.py](scripts/preprocess_wac.py)
-- Base map with landmarks — [scripts/make_study_area_map.py](scripts/make_study_area_map.py)
-- Manifest builder (attached + detached PDS3 labels, **size verification**) —
-  [scripts/build_data_manifest.py](scripts/build_data_manifest.py)
-- See [docs/week4_study_area.md](docs/week4_study_area.md) for details
+- LROC WAC mosaic for the area (100 m/px) from the USGS Moon WMS — [scripts/download_wac.py](scripts/download_wac.py)
+- SLDEM2015 tile (512 ppd, ~59 m/px, 1.42 GB) downloaded complete — [scripts/download_sldem.sh](scripts/download_sldem.sh)
+- Study-area DEM crop + km→m (3073 × 2561 px) — [scripts/preprocess_week4.py](scripts/preprocess_week4.py)
+- Lunar CRS for the WMS GeoTIFF — [scripts/preprocess_wac.py](scripts/preprocess_wac.py)
+- Base map with landmark craters — [scripts/make_study_area_map.py](scripts/make_study_area_map.py)
+- Data manifest with size verification against the PDS labels — [scripts/build_data_manifest.py](scripts/build_data_manifest.py)
 
+**Stereo pair found and processed**
+
+- Pair: M1406988604LE + M1406995626LE (2022-05-12, orbits 57968/57969,
+  convergence 23.1°) — found with [scripts/find_stereo_pairs.py](scripts/find_stereo_pairs.py)
+  and validated with [scripts/stereo_check.py](scripts/stereo_check.py)
+- Pipeline: ISIS import/calibrate/project → ASP `parallel_stereo` + `point2dem` —
+  [scripts/run_nac_pair_rimae_bode.sh](scripts/run_nac_pair_rimae_bode.sh)
+- SPIKE kernels for recent LROC data have to be supplied by hand:
+  [docs/lroc_spice_kernels.md](docs/lroc_spice_kernels.md)
+- **DEM**: 2176 × 13866 px at 3.28 m/px, 7 × 45 km strip, intersection error
+  median 4.46 m
+- **vs SLDEM2015**: vertical datum agrees to < 1 m (median offset −0.83 m);
+  RMSE 35.3 m overall, but only 4 m MAE on terrain flatter than 5°, rising to
+  ~88 m on crater walls steeper than 25° — see
+  [docs/week4_nac_dem_results.md](docs/week4_nac_dem_results.md)
 ## Environments
 
 ### Python geospatial environment

@@ -1,0 +1,8 @@
+product_id,path,size_bytes,sha256,note
+NAC_M1406988604LE_EDR,data/raw/lroc_nac_rimae_bode/M1406988604LE.IMG,264467400,95b65ef8f42670aeee666b620a9869cd77113b01877fab50f73e23ca474adbf6,LROC NAC EDR, orbit 57968, stereo partner
+NAC_M1406995626LE_EDR,data/raw/lroc_nac_rimae_bode/M1406995626LE.IMG,264467400,fdfbd60c7e483a6bde899548b137aea44858e8de823ae54a581f99b1e5559c55,LROC NAC EDR, orbit 57969, primary
+NAC_DEM_RimaeBode,outputs/week4/nac_dem.tif,29747331,4f642a1b1eedabc4c771dfd7eb1dfa213285eb5b8e9b71d78d3c89c3d5050b73,ASP DEM, 3.283 m/px, 2176x13866
+NAC_ORTHO_RimaeBode,outputs/week4/nac_ortho.tif,61791432,9b34d7801800455a024f8e1b7a540e6611116293d0efeffb0f2e4093ccc9908a,ASP orthoimage, same grid
+NAC_IntersectionErr,outputs/week4/nac_intersection_err.tif,22499221,a0caadfea52c06b1dbd60fa50db6101970583ff331205da53e2f11ea191aa9e4,ASP triangulation error (median 4.46 m)
+NAC_vs_SLDEM_stats,outputs/week4/nac_vs_sldem_stats.csv,431,ee95cccb635e66e4bf77d2cd02093cb18252289cbb6dc4264c2bc557995bb035,DEM comparison statistics
+NAC_vs_SLDEM_coreg,outputs/week4/nac_vs_sldem_coregistration.csv,120,61847bae682f047b5f4564c1e2f50f7feb9732ba6be4cdb86b9be33682760423,registration and slope dependence

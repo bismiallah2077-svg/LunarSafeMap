@@ -1,0 +1,2 @@
+fullres_n,fullres_offset_m,fullres_mean_m,fullres_std_m,fullres_rmse_raw_m,fullres_rmse_detrended_m,fullres_mae_detrended_m,fullres_p1_m,fullres_p99_m,matched_n,matched_offset_m,matched_mean_m,matched_std_m,matched_rmse_raw_m,matched_rmse_detrended_m,matched_mae_detrended_m,matched_p1_m,matched_p99_m
+16198623,-0.832,0.761,35.253,35.261,35.289,10.866,-27.547,32.997,49990,-0.842,0.669,33.199,33.205,33.233,10.698,-27.321,32.973
