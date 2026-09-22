@@ -1,0 +1,4 @@
+run,channels,test_iou,test_precision,test_recall,test_f1,val_iou,val_precision,val_recall,val_f1,test_f1_delta_vs_dem,test_recall_delta_vs_dem,train_loss,val_loss,test_tp,test_fp,test_fn
+dem,DEM,0.2983,0.3676,0.6127,0.4595,0.2664,0.381,0.4698,0.4208,0.0,0.0,0.3819,0.4323,209477,360319,132401
+dslope,DEM+slope,0.3002,0.4467,0.478,0.4618,0.2635,0.4331,0.4022,0.4171,0.0023,-0.1347,0.3755,0.4438,163408,202421,178470
+dshade,DEM+slope+shade,0.3772,0.6279,0.4858,0.5478,0.2856,0.537,0.3788,0.4443,0.0883,-0.1269,0.3589,0.4034,166089,98405,175789

@@ -163,3 +163,105 @@ spiceinit from=cube.cub \
 | ISIS 步骤中断 | 脚本按"输出文件是否存在"判断，会自动跳过已完成步骤 |
 | 怀疑某个 cube 写坏了 | 看文件大小是否明显偏小，删掉它再跑 |
 | 电脑自动重启 | 多半是 ASP 内存打满：把脚本里 `--processes 4` 调小（8 GB 内存用 2） |
+
+## F. 新增：第 6 周（撞击坑识别）你必须亲自做的（2026-09 新增）
+
+机器学习部分最容易被"跑个脚本拿到数字"糊弄过去，所以这里明确列出**只有你能做、
+而且必须做**的四件事。前两件各 10 分钟，后两件各 20 分钟。
+
+### F1. 肉眼比对预测掩膜与真值掩膜（10 分钟）
+
+```bash
+# 生成一张并排对比图（左：真值圆盘，右：模型预测）
+python - <<'PY'
+import numpy as np, matplotlib
+matplotlib.use("Agg"); import matplotlib.pyplot as plt
+from osgeo import gdal
+gt = gdal.Open("data/interim/week6/crater_mask_sldem.tif").ReadAsArray()
+pr = gdal.Open("outputs/week6/study_area_crater_pred.tif").ReadAsArray()
+f, ax = plt.subplots(1, 2, figsize=(14, 6))
+ax[0].imshow(gt, cmap="gray"); ax[0].set_title("Robbins labels (truth)")
+ax[1].imshow(pr, cmap="gray"); ax[1].set_title("U-Net prediction")
+plt.savefig("outputs/week6/labels_vs_pred.png", dpi=130, bbox_inches="tight")
+PY
+```
+
+打开 `outputs/week6/labels_vs_pred.png`（或直接拖进 QGIS）。你要回答的问题：
+
+1. 预测出来的坑**位置**对不对？（还是整体偏移了？偏移说明配准/坐标有问题）
+2. 预测的坑是**实心圆**还是**环**？环说明模型学到了坑缘（好现象）
+3. 有没有把**坑链、月溪（Rimae）、坑底裂隙**误判成坑？（Rimae Bode 正好有条月溪）
+
+### F2. 抽样核查虚警：347 个虚警里有多少是真坑（20 分钟）
+
+```bash
+# 40 个最大的虚警（大的最容易判断，也最能说明问题）
+python scripts/week6_review_false_positives.py --top 40
+# 只看 1-2 km 档（数量最多、最值得抽样）
+python scripts/week6_review_false_positives.py --bin 1 2 --top 40
+```
+
+产出两个东西：
+
+- `outputs/week6/review_false_positives.csv`：每个虚警的 lon / lat / 等效直径，
+  **留了空的 `verdict` 和 `note` 两列给你填**；
+- `outputs/week6/review_fp_map.png`：研究区 DEM 底图 + 绿圈（Robbins 真值）+ 红叉（虚警）。
+
+在 QGIS 里把 `review_false_positives.csv` 用 "Add Delimited Text Layer" 加载
+（X=lon, Y=lat），叠到 `outputs/week4/study_area_map.png` 上逐个看，然后填 `verdict`：
+
+| `verdict` 填什么 | 含义 | 意义 |
+|---|---|---|
+| 确实是坑，Robbins 没收录 | a | 精度被低估 a/20 × 100% |
+| 不是坑（坑链/月溪/纹理） | b | 这是真正的错误 |
+| 说不清 | c | 需要更高分辨率影像（NAC）确认 |
+
+**这一步是论文里"精度 0.451 是下界"这句话的证据**，没有它就只能靠猜。
+
+### F3. 读懂 Robbins 目录的列（10 分钟）
+
+```bash
+head -1 data/interim/week6/robbins_raw.csv
+# CRATER_ID,LAT_CIRC_IMG,LON_CIRC_IMG,LAT_ELLI_IMG,LON_ELLI_IMG,DIAM_CIRC_IMG,...
+```
+
+必须能回答：`CIRC` 是**圆形拟合**、`ELLI` 是椭圆拟合，我们用了哪一个、为什么。
+（我们用 CIRC：撞击坑的**等效直径**定义来自圆，ELLI 描述的是坑缘形变。）
+
+### F4. 判断"模型错"还是"数据不够"（20 分钟）
+
+这是整个第 6 周最重要的一次判断。拿 1–2 km 档的漏检（221 个）做实验：
+
+```bash
+source ~/miniconda3/etc/profile.d/conda.sh && conda activate lunarsafe
+python - <<'PY'
+import numpy as np
+from osgeo import gdal
+ds = gdal.Open("data/interim/week4/sldem_rimae_bode.tif")
+print("研究区 DEM 像元: %.1f m" % (abs(ds.GetGeoTransform()[1]) * 1737400 * np.pi / 180))
+print("1 km 的坑在这个分辨率下只有约 %.0f 个像元跨径" % (1000 / (abs(ds.GetGeoTransform()[1]) * 1737400 * np.pi / 180)))
+PY
+```
+
+输出约 59 m/px、约 17 个像元。然后回答：**17 个像元、坑缘只占 2–3 个像元的高程变化，
+信息量够判断"这是个坑"吗？** 如果不够，那漏检的瓶颈就是**数据分辨率**，
+而不是模型——这正是第 3 周我们自己用 ASP 生产 3.28 m/px NAC DEM 的意义所在
+（用 NAC DEM 当输入重跑同一套代码，就能把"数据不够"这个假设验证掉）。
+
+## G. 深度学习术语速查（写论文和讨论时用）
+
+| 英文 | 中文 | 在我们的项目里具体指什么 |
+|---|---|---|
+| sample / tile | 样本 / 切片 | 一块 256×256 的 DEM 窗口 |
+| label / target | 标签 / 真值 | Robbins 目录坑的圆盘掩膜（1 = 坑内） |
+| feature / channel | 特征 / 通道 | 高程；可选加坡度、山体阴影 |
+| batch size | 批大小 | 8：一次喂 8 块切片再更新一次权重 |
+| epoch | 轮 | 把训练集完整看一遍（我们 12 轮） |
+| loss | 损失 | 0.5×BCE + 0.5×Dice |
+| learning rate | 学习率 | 1e-3，权重每次更新的步长 |
+| overfitting | 过拟合 | 训练损失降、验证损失升（我们没有出现） |
+| augmentation | 数据增强 | 随机旋转 / 水平翻转 |
+| IoU / P / R / F1 | 交并比 / 查准 / 查全 / F1 | 像素级：见 `metrics.csv` |
+| TP / FP / FN | 真阳性 / 假阳性 / 假阴性 | 检测级：见 `catalog_metrics.csv` |
+| ablation | 消融实验 | 只改一个输入通道，看分数怎么变 |
+| domain shift | 域偏移 | 换光照角/换传感器后模型掉分（第 8 周要做） |

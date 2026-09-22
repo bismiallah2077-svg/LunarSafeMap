@@ -1,0 +1,40 @@
+=== data ===
+  training-region craters >= 1.0 km : 9,413
+  study-area craters     >= 1.0 km : 532
+  tiles in the training box: 400 positive, 153 negative
+  train tiles: 392   val tiles (north of 14N): 161
+  normalisation: mean -998.7 m, std 256.7 m
+
+=== training (1,286,417 parameters, 12 epochs) ===
+/home/zwx/projects/LunarSafeMap/scripts/week6_train_unet.py:322: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  total += float(loss) * x.shape[0]
+  epoch  1/12  train 0.6484  val 0.7753  (66 s elapsed)
+  epoch  2/12  train 0.5813  val 0.5774  (119 s elapsed)
+  epoch  3/12  train 0.5355  val 0.5469  (174 s elapsed)
+  epoch  4/12  train 0.4992  val 0.5129  (227 s elapsed)
+  epoch  5/12  train 0.4700  val 0.4962  (285 s elapsed)
+  epoch  6/12  train 0.4522  val 0.4715  (339 s elapsed)
+  epoch  7/12  train 0.4320  val 0.4594  (390 s elapsed)
+  epoch  8/12  train 0.4152  val 0.4377  (443 s elapsed)
+  epoch  9/12  train 0.4032  val 0.4375  (495 s elapsed)
+  epoch 10/12  train 0.3940  val 0.4289  (549 s elapsed)
+  epoch 11/12  train 0.3925  val 0.4378  (600 s elapsed)
+  epoch 12/12  train 0.3819  val 0.4323  (652 s elapsed)
+  saved /home/zwx/projects/LunarSafeMap/outputs/week6/unet_craters.pt
+
+=== evaluation ===
+  validation (training box, north of 14N): IoU 0.266  P 0.381  R 0.470  F1 0.421
+  TEST study area (Rimae Bode): IoU 0.298  P 0.368  R 0.613  F1 0.460
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/metrics.csv
+Traceback (most recent call last):
+  File "/home/zwx/projects/LunarSafeMap/scripts/week6_train_unet.py", line 503, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/zwx/projects/LunarSafeMap/scripts/week6_train_unet.py", line 495, in main
+    mask = predict_full_study(model, study_ds, study_gt, mean, std, device,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zwx/projects/LunarSafeMap/scripts/week6_train_unet.py", line 364, in predict_full_study
+    x = torch.from_numpy(normalise(z, mode, mean, std)[None, None].astype("float32")).to(device)
+                                      ^^^^
+NameError: name 'mode' is not defined. Did you mean: 'model'?

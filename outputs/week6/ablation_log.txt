@@ -1,0 +1,117 @@
+=== 0. sync files ===
+=== 1. self test ===
+/home/zwx/projects/LunarSafeMap/scripts/week6_train_unet.py:434: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  print("  loss            : {:.4f}".format(float(loss)))
+  output shape    : (2, 1, 256, 256)
+  loss            : 1.8872
+  forward+backward : 0.31 s for a batch of 2 tiles
+  RESULT          : OK
+=== 2. feature ablation ===
+
+############################################################
+### run: channels=dem  tag=dem  (limit 400, 12 epochs)
+############################################################
+=== data ===
+  training-region craters >= 1.0 km : 9,413
+  study-area craters     >= 1.0 km : 532
+  tiles in the training box: 400 positive, 153 negative
+  train tiles: 392   val tiles (north of 14N): 161
+  normalisation: mean -998.7 m, std 256.7 m
+
+=== training (1,286,417 parameters, 12 epochs) ===
+  epoch  1/12  train 0.6484  val 0.7753  (129 s elapsed)
+  epoch  2/12  train 0.5813  val 0.5774  (183 s elapsed)
+  epoch  3/12  train 0.5355  val 0.5469  (242 s elapsed)
+  epoch  4/12  train 0.4992  val 0.5129  (300 s elapsed)
+  epoch  5/12  train 0.4700  val 0.4962  (362 s elapsed)
+  epoch  6/12  train 0.4522  val 0.4715  (421 s elapsed)
+  epoch  7/12  train 0.4320  val 0.4594  (477 s elapsed)
+  epoch  8/12  train 0.4152  val 0.4377  (531 s elapsed)
+  epoch  9/12  train 0.4032  val 0.4375  (587 s elapsed)
+  epoch 10/12  train 0.3940  val 0.4289  (640 s elapsed)
+  epoch 11/12  train 0.3925  val 0.4378  (697 s elapsed)
+  epoch 12/12  train 0.3819  val 0.4323  (754 s elapsed)
+  saved /home/zwx/projects/LunarSafeMap/outputs/week6/unet_craters_dem.pt
+
+=== evaluation ===
+  validation (training box, north of 14N): IoU 0.266  P 0.381  R 0.470  F1 0.421
+  TEST study area (Rimae Bode): IoU 0.298  P 0.368  R 0.613  F1 0.460
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/metrics_dem.csv
+  predicted mask coverage: 7.24 % of the study area
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/study_area_crater_pred_dem.tif
+
+############################################################
+### run: channels=dem+slope  tag=dslope  (limit 400, 12 epochs)
+############################################################
+=== data ===
+  training-region craters >= 1.0 km : 9,413
+  study-area craters     >= 1.0 km : 532
+  tiles in the training box: 400 positive, 153 negative
+  train tiles: 392   val tiles (north of 14N): 161
+  normalisation: mean -998.7 m, std 256.7 m
+
+=== training (1,286,561 parameters, 12 epochs) ===
+  epoch  1/12  train 0.6504  val 0.6792  (57 s elapsed)
+  epoch  2/12  train 0.5774  val 0.5587  (112 s elapsed)
+  epoch  3/12  train 0.5301  val 0.5472  (169 s elapsed)
+  epoch  4/12  train 0.4920  val 0.4983  (228 s elapsed)
+  epoch  5/12  train 0.4658  val 0.4872  (285 s elapsed)
+  epoch  6/12  train 0.4423  val 0.4489  (344 s elapsed)
+  epoch  7/12  train 0.4191  val 0.4416  (401 s elapsed)
+  epoch  8/12  train 0.4051  val 0.4310  (459 s elapsed)
+  epoch  9/12  train 0.3935  val 0.4313  (513 s elapsed)
+  epoch 10/12  train 0.3915  val 0.4188  (570 s elapsed)
+  epoch 11/12  train 0.3827  val 0.4207  (627 s elapsed)
+  epoch 12/12  train 0.3755  val 0.4438  (685 s elapsed)
+  saved /home/zwx/projects/LunarSafeMap/outputs/week6/unet_craters_dslope.pt
+
+=== evaluation ===
+  validation (training box, north of 14N): IoU 0.263  P 0.433  R 0.402  F1 0.417
+  TEST study area (Rimae Bode): IoU 0.300  P 0.447  R 0.478  F1 0.462
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/metrics_dslope.csv
+  predicted mask coverage: 4.65 % of the study area
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/study_area_crater_pred_dslope.tif
+
+############################################################
+### run: channels=dem+slope+shade  tag=dshade  (limit 400, 12 epochs)
+############################################################
+=== data ===
+  training-region craters >= 1.0 km : 9,413
+  study-area craters     >= 1.0 km : 532
+  tiles in the training box: 400 positive, 153 negative
+  train tiles: 392   val tiles (north of 14N): 161
+  normalisation: mean -998.7 m, std 256.7 m
+
+=== training (1,286,705 parameters, 12 epochs) ===
+  epoch  1/12  train 0.6117  val 0.7005  (65 s elapsed)
+  epoch  2/12  train 0.5402  val 0.5489  (124 s elapsed)
+  epoch  3/12  train 0.4936  val 0.5051  (184 s elapsed)
+  epoch  4/12  train 0.4595  val 0.4778  (241 s elapsed)
+  epoch  5/12  train 0.4373  val 0.4407  (297 s elapsed)
+  epoch  6/12  train 0.4118  val 0.4519  (350 s elapsed)
+  epoch  7/12  train 0.3910  val 0.4162  (405 s elapsed)
+  epoch  8/12  train 0.3846  val 0.4446  (459 s elapsed)
+  epoch  9/12  train 0.3732  val 0.4189  (512 s elapsed)
+  epoch 10/12  train 0.3671  val 0.4030  (570 s elapsed)
+  epoch 11/12  train 0.3657  val 0.4077  (626 s elapsed)
+  epoch 12/12  train 0.3589  val 0.4034  (684 s elapsed)
+  saved /home/zwx/projects/LunarSafeMap/outputs/week6/unet_craters_dshade.pt
+
+=== evaluation ===
+  validation (training box, north of 14N): IoU 0.286  P 0.537  R 0.379  F1 0.444
+  TEST study area (Rimae Bode): IoU 0.377  P 0.628  R 0.486  F1 0.548
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/metrics_dshade.csv
+  predicted mask coverage: 3.36 % of the study area
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/study_area_crater_pred_dshade.tif
+
+=== 3. summary ===
+feature ablation (test set = Rimae Bode, never seen in training)
+  input                  IoU       P       R      F1     d(F1)
+  DEM                  0.298   0.368   0.613   0.460    +0.000
+  DEM+slope            0.300   0.447   0.478   0.462    +0.002
+  DEM+slope+shade      0.377   0.628   0.486   0.548    +0.088
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/ablation_features.csv
+  wrote /home/zwx/projects/LunarSafeMap/outputs/week6/ablation_features.png
+
+[week6-ablation] DONE - see outputs/week6/ablation_features.csv

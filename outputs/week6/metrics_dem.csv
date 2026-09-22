@@ -1,0 +1,4 @@
+set,n_tiles,iou,precision,recall,f1,tp,fp,fn,epoch,train_loss,val_loss
+val_north_band,161,0.2664,0.381,0.4698,0.4208,179197,291111,202233,,,
+test_study_area,120,0.2983,0.3676,0.6127,0.4595,209477,360319,132401,,,
+train_history,0,,,,,,,,12,0.3819,0.4323

@@ -6,3 +6,16 @@ NAC_ORTHO_RimaeBode,outputs/week4/nac_ortho.tif,61791432,9b34d7801800455a024f8e1
 NAC_IntersectionErr,outputs/week4/nac_intersection_err.tif,22499221,a0caadfea52c06b1dbd60fa50db6101970583ff331205da53e2f11ea191aa9e4,ASP triangulation error (median 4.46 m)
 NAC_vs_SLDEM_stats,outputs/week4/nac_vs_sldem_stats.csv,431,ee95cccb635e66e4bf77d2cd02093cb18252289cbb6dc4264c2bc557995bb035,DEM comparison statistics
 NAC_vs_SLDEM_coreg,outputs/week4/nac_vs_sldem_coregistration.csv,120,61847bae682f047b5f4564c1e2f50f7feb9732ba6be4cdb86b9be33682760423,registration and slope dependence
+Robbins2018_catalogue,data/raw/robbins/lunar_crater_database_robbins_2018.zip,96227201,694137e141138892555d0f976446875331d3317ea506ddf055d91b917ca307ab,USGS Robbins 2018 crater database, 96,227,201 bytes, 1,296,796 craters
+Crater_labels_RimaeBode,data/interim/week6/crater_mask_sldem.tif,91336,440e73ae067687d4134275ec3c4244f90e6698ec01ffcf1f4f0f0c7e67c7fc74,Crater discs rasterised on the study-area DEM grid, 5.50 percent coverage
+Crater_tiles_week6,data/interim/week6/tiles.csv,8000,1ec1888836d70db2fd3da225d18f07d5fadf18321a99c4f043352dc00e0a06ce,120 tiles of 256 px with the crater count of each
+UNet_crater_weights,outputs/week6/unet_craters.pt,5193791,ac5bb8d815682da9e60ae356f7b92a428971ac11b2bbe33f0f93451bc68bcbc7,PyTorch U-Net, 1,286,417 params, 12 epochs on CPU
+Crater_catalogue_RimaeBode,outputs/week6/craters_detected.geojson,88292,3241221f825ed25a698c1c62bc1af7546965011d08af59ba0c2d8bd8011270cc,632 detected craters with lon/lat/diameter
+Crater_detection_metrics,outputs/week6/catalog_metrics.csv,216,c528d82c6974a42a63c0a89271cb6cbb506f246a4dde2c8035a85002197030a3,Detection-level precision/recall/F1 per diameter bin
+Crater_pixel_metrics,outputs/week6/metrics.csv,257,e0b8732409ede52e4ce111aabd5748b641780cc46b67c67c6d92ea9e3322ea59,Pixel-level IoU/P/R/F1 on validation and study area
+Crater_ablation_features,outputs/week6/ablation_features.csv,546,ede8b544bd87811a0729f1b795e41a84e5b33f517bc458164390f4eaed0b187b,Input-feature ablation: DEM / +slope / +slope+shade
+Crater_pred_mask,outputs/week6/study_area_crater_pred.tif,128919,f17e964ba1aee5b53e24610286dd87a8db272645c5b31f5665bd1c01067295e8,Study-area prediction, 3073x2561 px, 7.24 percent coverage
+Crater_review_FP,outputs/week6/review_false_positives.csv,12214,590ab9fe4090e1a249d27829ffb2097d4541ed4c3cb937c04fff98118fbed0e2,Spurious detections listed for manual review (verdict column blank)
+Crater_review_misses,outputs/week6/review_misses.csv,5945,a08ec56b5228d4682dbded208f4ce0d9312d25d3bd96c8f9d4ae706a2db904f8,Known craters that were not detected
+Crater_review_map,outputs/week6/review_fp_map.png,827266,0de988ec84299b787053aae47fc9e46ddb6f8b2b1000adc0e59c5978718e03d3,Quick-look: study DEM + Robbins circles + spurious detections
+Crater_labels_vs_pred,outputs/week6/labels_vs_pred.png,221841,5682a60929e8ff42e63f62121635c67ac4430ba625d03158732a1bf628c092c1,Side-by-side of the Robbins labels and the prediction
