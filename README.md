@@ -78,6 +78,19 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
 - **Detection level**: F1 0.488 overall; **8/8 craters ≥ 5 km, zero false
   positives**; 1–2 km craters are the bottleneck (R 0.512) —
   [scripts/week6_mask_to_catalog.py](scripts/week6_mask_to_catalog.py)
+- **Manual review of 40 randomly sampled false positives**: half of them turn out
+  to be real craters that the Robbins catalogue is missing, so the true detection
+  precision is **0.726 (0.644–0.807)** instead of the reported 0.451. The
+  correction is concentrated in the 1–2 km bin (P 0.467 → **0.804**) and is
+  essentially zero for 2–5 km; over half of the genuine false positives are
+  illumination / shadow artefacts —
+  [scripts/week6_review_false_positives.py](scripts/week6_review_false_positives.py)
+- **Missed craters reviewed with the same method**: 40 random samples out of the 250
+  misses, judged for whether the rim is identifiable at 59 m/px. Only 45 % were, so
+  the *detectable* recall is **0.717 (0.655–0.788)** instead of the reported 0.533.
+  12 of the 40 were cases where the model did respond but the ≥ 1 km size filter
+  dropped the blob; lowering it to 0.3 km recovers 44 true craters
+  (R 0.533 → 0.615) at the cost of precision (0.451 → 0.334)
 - Output catalogue with longitude, latitude and diameter:
   `outputs/week6/craters_detected.geojson` (632 features)
 - **Feature ablation** (same seed, same 400 tiles, only the input channels change):

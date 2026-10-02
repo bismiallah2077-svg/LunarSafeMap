@@ -130,6 +130,14 @@ def main(argv=None):
                     help="predicted mask to catalogue (default: the baseline run)")
     ap.add_argument("--tag", default="",
                     help="suffix for the output files, e.g. --tag dshade")
+    ap.add_argument("--min-det-km", type=float, default=MIN_DET_KM,
+                    help="drop detections below this equivalent diameter (default "
+                         "{:.1f} km).  The manual review showed that some real "
+                         "craters are lost here, so this is worth sweeping.".format(
+                             MIN_DET_KM))
+    ap.add_argument("--match-frac", type=float, default=MATCH_FRAC,
+                    help="centre distance must be below this fraction of the "
+                         "ground-truth diameter (default {:.1f})".format(MATCH_FRAC))
     args = ap.parse_args(argv)
 
     mask, gt, ds = load_mask(args.mask)
@@ -138,16 +146,17 @@ def main(argv=None):
     print("  grid {} x {}, coverage {:.2f} %".format(
         mask.shape[1], mask.shape[0], 100.0 * mask.mean()))
     dets_raw, px_m = components(mask, gt)
-    dets = [d for d in dets_raw if d["diam_km"] >= MIN_DET_KM]
+    dets = [d for d in dets_raw if d["diam_km"] >= args.min_det_km]
     print("  components: {:,} raw -> {:,} after the >= {:.1f} km filter".format(
-        len(dets_raw), len(dets), MIN_DET_KM))
+        len(dets_raw), len(dets), args.min_det_km))
     gts = read_gt(GT)
     print("  ground truth (Robbins >= 1 km): {:,}".format(len(gts)))
 
-    tp, fp, fn = match(dets, gts)
+    tp, fp, fn = match(dets, gts, frac=args.match_frac)
     overall = prf(tp, fp, fn)
     print("")
-    print("=== detection level metrics (centre within {:.1f} x GT diameter) ===".format(MATCH_FRAC))
+    print("=== detection level metrics (centre within {:.1f} x GT diameter) ===".format(
+        args.match_frac))
     print("  detected {:d} of {:d} known craters".format(overall["n_tp"], len(gts)))
     print("  precision {:.3f}   recall {:.3f}   F1 {:.3f}".format(
         overall["precision"], overall["recall"], overall["f1"]))

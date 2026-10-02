@@ -15,7 +15,14 @@ Crater_detection_metrics,outputs/week6/catalog_metrics.csv,216,c528d82c6974a42a6
 Crater_pixel_metrics,outputs/week6/metrics.csv,257,e0b8732409ede52e4ce111aabd5748b641780cc46b67c67c6d92ea9e3322ea59,Pixel-level IoU/P/R/F1 on validation and study area
 Crater_ablation_features,outputs/week6/ablation_features.csv,546,ede8b544bd87811a0729f1b795e41a84e5b33f517bc458164390f4eaed0b187b,Input-feature ablation: DEM / +slope / +slope+shade
 Crater_pred_mask,outputs/week6/study_area_crater_pred.tif,128919,f17e964ba1aee5b53e24610286dd87a8db272645c5b31f5665bd1c01067295e8,Study-area prediction, 3073x2561 px, 7.24 percent coverage
-Crater_review_FP,outputs/week6/review_false_positives.csv,12214,590ab9fe4090e1a249d27829ffb2097d4541ed4c3cb937c04fff98118fbed0e2,Spurious detections listed for manual review (verdict column blank)
-Crater_review_misses,outputs/week6/review_misses.csv,5945,a08ec56b5228d4682dbded208f4ce0d9312d25d3bd96c8f9d4ae706a2db904f8,Known craters that were not detected
 Crater_review_map,outputs/week6/review_fp_map.png,827266,0de988ec84299b787053aae47fc9e46ddb6f8b2b1000adc0e59c5978718e03d3,Quick-look: study DEM + Robbins circles + spurious detections
 Crater_labels_vs_pred,outputs/week6/labels_vs_pred.png,221841,5682a60929e8ff42e63f62121635c67ac4430ba625d03158732a1bf628c092c1,Side-by-side of the Robbins labels and the prediction
+Crater_review_FP,outputs/week6/review_false_positives.csv,4597,6c2c87f3e813d5ab9676d26a922120ff5f872772d47d3e887c004b1edc4817df,40 randomly sampled spurious detections with the manual verdict (TP/FP) and a note
+Crater_review_misses,outputs/week6/review_misses.csv,4823,5ebc5509af5f50a455f85355bd64a6cf8febaf1415bad7bafce3b81ebdd0a722,40 randomly sampled misses judged for detectability at 59 m/px
+Crater_review_misses_all,outputs/week6/review_misses_all.csv,5688,986cd0f3bc32c7a6334b7b17c59a22893239570f9be89b52623c82329d78f4fd,All 250 false negatives (reference list)
+Crater_review_summary,outputs/week6/review_summary.txt,1839,2b317c576698700d6cc418d652b30108e1edb06301106d05041cb044595fa163,Corrected precision (0.726) and detectable recall (0.717) with Wilson intervals
+Crater_review_map_fp,outputs/week6/review_fp_map.png,743542,b9201a7e5f1914588ec708723b4edcb435e89c986f0b1678df5105cb4203b9f2,Quick-look map of the reviewed false positives
+Crater_review_map_miss,outputs/week6/review_miss_map.png,750756,4ce9f44393fed9957feb1bd2e847f8004b2d32a07b63ac76d90aecdbc8ace719,Quick-look map of the reviewed misses
+Crater_size_sweep_05,outputs/week6/catalog_metrics_md0.5.csv,215,02a9924353fc3df350f87128a69ff5ab1655dbf91cf5c8060a562265cc494c90,Detection metrics with the size filter lowered to 0.5 km
+Crater_size_sweep_03,outputs/week6/catalog_metrics_md0.3.csv,214,f9027411134de0d214e811fc32b1b0bfa4fa41ccc29e9eed06d40bfaa337e156,Detection metrics with the size filter lowered to 0.3 km
+Crater_sample_tiles,outputs/week6/sample_tiles.png,640979,84757fc6106e480a503ae34212321aaac06df5b3f8506024edba8a578a88ce56,Teaching figure: input DEM / label / prediction for three contrasting tiles

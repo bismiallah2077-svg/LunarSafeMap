@@ -1,0 +1,41 @@
+=== manual review summary ===
+  (TP/true_crater = a real crater that Robbins missed;
+   FP/not_crater  = genuinely spurious)
+  reviewed        : 40  (unfilled: 0)
+  true crater     : 20
+  not a crater    : 20
+  unclear         : 0
+  share of spurious detections that are really craters: 0.500
+  95 % Wilson interval for that share: [0.352, 0.648]
+
+=== corrected catalogue quality ===
+  reported  precision 0.451  (against the Robbins catalogue)
+  corrected precision 0.644 .. 0.807  (Robbins misses included)
+
+  reading: the 347 'spurious' detections are not all wrong - if 50% of
+  them are genuine craters the catalogue missed, the real precision is
+  about 73% rather than 45%.
+  Recall against Robbins (285/535, 53%) is unchanged: those craters
+  simply absent from the reference catalogue used to score the model.
+
+=== what those 'real crater' detections actually are ===
+  inside a crater Robbins already lists (duplicate / partial): 1
+  inside a crater Robbins lists but the model missed          : 0
+  on a crater Robbins does not have at all                    : 19
+  -> only the last group is evidence of catalogue incompleteness
+
+=== correction by detection diameter ===
+   det diam     n  real   share  P reported P corrected
+        1-2    30    19    0.63       0.467  0.804 [0.71, 0.88]
+        2-5    10     1    0.10       0.354  0.419 [0.37, 0.62]
+      5-100     0     -       -           -   no sample
+
+=== missed craters (false negatives) ===
+  reviewed        : 40 of 250 misses (unfilled: 0)
+  detectable      : 18
+  not detectable  : 21
+  unclear         : 1
+  share of the misses that were detectable: 0.450  [0.307, 0.602]
+  recall vs the Robbins catalogue : 0.533
+  detectable recall               : 0.717  [0.655, 0.788]
+  (the interval runs backwards: a larger share of detectable misses means a lower recall)
