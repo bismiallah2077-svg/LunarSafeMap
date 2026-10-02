@@ -100,6 +100,43 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
   (detection-level F1 0.488 → 0.542) — [scripts/week6_ablation.sh](scripts/week6_ablation.sh)
 - Methods, formulas and the 8 debugging lessons:
   [docs/week6_crater_detection.md](docs/week6_crater_detection.md)
+
+### Week 7: Suitability model and validation against the paper
+
+- Model: `S = w_slope·H_slope + w_rough·H_rough + w_crater·H_crater` on the SLDEM
+  59.2 m grid, with piecewise-linear hazard ramps and the week-5 terrain metrics
+  reused verbatim — [scripts/week7_suitability.py](scripts/week7_suitability.py)
+- Candidate landing sites are **5 km sliding windows**, not the largest contiguous
+  safe region (the first attempt returned a 10,724 km² "site", 39 % of the study
+  area) — [docs/week7_suitability_plan.md](docs/week7_suitability_plan.md)
+- **Ranking is far more sensitive to thresholds than to weights**: changing the
+  weights keeps 9 of the top 10 sites, changing the thresholds keeps only 5
+- Expert weights: interactive AHP with a consistency check (11 self tests) —
+  [scripts/week7_ahp.py](scripts/week7_ahp.py),
+  [docs/week7_expert_weights_CN.md](docs/week7_expert_weights_CN.md).
+  The author's judgement (slope 3× roughness, 2× crater, roughness = crater)
+  gives 0.550/0.210/0.240 with CR = 0.0157
+- **Validation against Yang et al. (2026) Fig. 5**: of their four candidate sites,
+  **LS3 is the safest under all four parameterisations** (80.6–86.2 percentile,
+  zero danger pixels) and **LS2 the most hazardous under all four** (0.7–1.9
+  percentile) — [scripts/week7_compare_literature.py](scripts/week7_compare_literature.py)
+- Our own best site, (353.76°E, 11.08°N), is the same under every parameterisation
+  and lies 26–73 km from all four paper sites; the paper also weighs scientific
+  value, which our safety-only model does not
+
+### Week 8: Monte Carlo uncertainty
+
+- 200 draws perturbing weights (Dirichlet around the AHP vector), slope thresholds
+  {3,5,8}/{10,15,20}°, roughness {0.5,1,2}/{3,5,10} m, rim buffer {500,1000,2000} m
+  and the crater catalogue (632 precision / 897 recall) —
+  [scripts/week8_montecarlo.py](scripts/week8_montecarlo.py) (3.3 min per run)
+- **Area is uncertain, ranking is not**: the safe fraction spans 0.38–0.93
+  (5–95 %), yet the top sites keep rank percentile ≥ 99 in every draw
+- **Thresholds dominate**: their spread in the safe fraction is 0.15–0.18, versus
+  0.03 for the crater catalogue and 0.03–0.18 for the weights
+- Only **26 %** of the study area is safe under *every* parameter combination and
+  **35 %** is parameter-dependent (0.1 < P(safe) < 0.9) —
+  [docs/week8_uncertainty.md](docs/week8_uncertainty.md)
 ## Environments
 
 ### Python geospatial environment

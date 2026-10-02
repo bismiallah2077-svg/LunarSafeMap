@@ -1,0 +1,49 @@
+=== setup ===
+  (geographic grid: 0.001953 deg/px -> 59.22 m/px on the Moon)
+  DEM 3073 x 2561 at 59.22 m/px, terrain support 59 m
+  catalogue precision: 632 craters, disc coverage 6.82 %
+  catalogue recall   : 897 craters, disc coverage 7.29 %
+  candidate pool: 21 distinct sites (week-7 top sites + the paper's)
+
+=== Monte Carlo: 200 draws, weight scheme dirichlet, seed 0 ===
+  weights ~ Dirichlet(15 x centre), centre = 0.550, 0.210, 0.240
+    20/ 200  (23 s, safe fraction so far 0.690)
+    40/ 200  (44 s, safe fraction so far 0.685)
+    60/ 200  (63 s, safe fraction so far 0.703)
+    80/ 200  (85 s, safe fraction so far 0.705)
+   100/ 200  (104 s, safe fraction so far 0.693)
+   120/ 200  (122 s, safe fraction so far 0.699)
+   140/ 200  (140 s, safe fraction so far 0.707)
+   160/ 200  (156 s, safe fraction so far 0.704)
+   180/ 200  (176 s, safe fraction so far 0.708)
+   200/ 200  (195 s, safe fraction so far 0.708)
+
+=== safe-area fraction across the draws ===
+  mean 0.708, 5-95 % interval [0.384, 0.931], min 0.209, max 0.963
+  (deterministic references: equal 0.584 / entropy 0.756 / calib 0.784 / AHP 0.707)
+
+=== most stable sites (mean rank percentile, 5-95 % interval) ===
+  site                 lon E     mean      p05      p95 P(top10)
+  1#equal           353.7617    100.0    100.0    100.0     1.0
+  2#equal           353.7734    100.0    100.0    100.0     1.0
+  3#equal           353.6152     99.9     99.7    100.0     1.0
+  4#equal           353.7617     99.9     99.9    100.0     1.0
+  5#equal           353.0000     99.8     99.6     99.8     1.0
+  6#equal           354.4355     99.8     99.8     99.9     1.0
+  7#equal           354.1680     99.8     99.8     99.9     1.0
+  9#equal           353.8105     99.8     99.7    100.0     1.0
+  10#equal          356.6113     99.8     99.7     99.9     1.0
+  9#entropy         356.7871     99.8     99.7     99.9     1.0
+  10#calib50_95     353.9922     99.6     99.2     99.9     1.0
+  5#calib50_95      353.6621     99.3     98.4     99.9     1.0
+
+  wrote mc_prob_safe.tif / mc_prob_danger.tif (per-pixel probability over 200 draws)
+  wrote mc_draws.csv (every draw, so any figure can be reproduced)
+
+=== realised weight ranges (report these in the paper) ===
+  slope      centre 0.550 | drawn 0.249 .. 0.879 (0.45x .. 1.60x centre)
+  roughness  centre 0.210 | drawn 0.021 .. 0.569 (0.10x .. 2.71x centre)
+  crater     centre 0.240 | drawn 0.017 .. 0.604 (0.07x .. 2.51x centre)
+  wrote mc_summary.png
+
+  total 197 s

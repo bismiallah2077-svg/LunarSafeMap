@@ -48,3 +48,13 @@ Hazard_crater,outputs/week7/hazard_crater.tif,31495672,5da1780bd3706ec3f876c90ed
 Suitability_map,outputs/week7/suitability_map.png,3379466,4af4cc9979f3df8d59aeb1c620de9e24d2e01d7cd4c79aab84064f2844bf6aa2,Six-panel figure: hazard layers, S, classes, histogram
 Config_AHP_matrix,configs/ahp_matrix.csv,1158,938a6fef9bb9126af929029e17df08c39e7b3086dcb5ca7962e989874f4c8df9,Author's pairwise judgement (2026-10-02): weights 0.550/0.210/0.240, CR 0.0157
 Config_landing_sites,configs/landing_sites.csv,826,cd1cdec950b1851b238b80a98fa9f546deed2d064405d9b162cd9d516698b0b0,Paper LS1-LS4 coordinates read from Fig. 5, plus landmarks
+MC_sites_k15,outputs/week8/mc_sites_k15.csv,1282,ac5fd8b1cb67d976ae00b2ca5a8287b9766ae1992043770d1e1f23ea387ffd95,Per-site rank percentile distribution over 200 Monte Carlo draws (k15)
+MC_draws_k15,outputs/week8/mc_draws_k15.csv,15457,43f76ab52688cce0056f66bfeddb506942cd4c976c4a7aa49a10222aa52c15b9,Every Monte Carlo draw: weights, thresholds, buffer, catalogue, safe fraction
+MC_prob_safe_k15,outputs/week8/mc_prob_safe_k15.tif,31495665,9fac8d8d00ba7530a54694000903c86d1f927e98eb164ce057402125c1fa9ef2,Per-pixel probability of being classified safe over 200 draws (k15)
+MC_prob_danger_k15,outputs/week8/mc_prob_danger_k15.tif,31495665,fe686171e804189f72f1f6263e6b568507334a9453686550853afbe451c643eb,Per-pixel probability of being classified danger over 200 draws (k15)
+MC_summary_k15,outputs/week8/mc_summary_k15.png,1658647,882f6f2802b190c3f0c16198e2acfed86fede70e6bb0216753ebb7552c746d4f,Four-panel Monte Carlo summary figure (k15)
+MC_sites_k60,outputs/week8/mc_sites_k60.csv,1280,e474968f944fbea0a0db4a2cc614e9bc8ea17e09cfe6558699a9414faf69746d,Per-site rank percentile distribution over 200 Monte Carlo draws (k60)
+MC_draws_k60,outputs/week8/mc_draws_k60.csv,15455,291c0157cc01653dffdd176e96c5ec68b3c27f859fd56482299792d502134963,Every Monte Carlo draw: weights, thresholds, buffer, catalogue, safe fraction
+MC_prob_safe_k60,outputs/week8/mc_prob_safe_k60.tif,31495665,59aef4690c988a913cf778d1f9649e8aaa102d26151806c9b41508753ba98b5b,Per-pixel probability of being classified safe over 200 draws (k60)
+MC_prob_danger_k60,outputs/week8/mc_prob_danger_k60.tif,31495665,378aa8ab842607b49678366bb5a5c9d4721a0207673b65553a8c82f1855b3e4e,Per-pixel probability of being classified danger over 200 draws (k60)
+MC_summary_k60,outputs/week8/mc_summary_k60.png,1623005,e785bc69df8f791aa2519e73d90e716623a890d9b99be39cdaf9d03dd6d0f620,Four-panel Monte Carlo summary figure (k60)
