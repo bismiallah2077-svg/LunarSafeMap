@@ -1,0 +1,21 @@
+# Pairwise comparison of the three hazard factors (Saaty 1-9 scale).
+# a_ij answers: "how much more important is the ROW factor than the COLUMN factor?"
+#   1 = equally important          3 = moderately more important
+#   5 = strongly more important    7 = very strongly      9 = extremely
+# Use 2,4,6,8 for in-between values, and 1/3, 1/5 ... for the reverse direction.
+#
+# Fill the upper triangle, then set the lower triangle to 1/a_ij
+# (the script warns if the matrix is not reciprocal).
+#
+# --- filled in 2026-10-02 by the project author (the interactive exercise) ---
+#   Q1 slope vs roughness : slope matters more, 3  (hard engineering constraint)
+#   Q2 slope vs crater    : slope matters more, 2  (a crater can be mapped and
+#                                                   avoided, a slope cannot)
+#   Q3 roughness vs crater: equally important, 1
+# derived weights 0.5499 / 0.2098 / 0.2402   CR = 0.0158  (acceptable, < 0.1)
+# (An answer of 2/3 for Q3 would have been perfectly consistent with Q1+Q2;
+#  the small deviation is what the consistency ratio measures.)
+factor,slope,roughness,crater
+slope,1,3,2
+roughness,0.333333,1,1
+crater,0.5,1,1

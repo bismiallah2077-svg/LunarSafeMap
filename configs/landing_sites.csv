@@ -1,15 +1,15 @@
-# Candidate landing sites (Yang et al. 2026, Nature Astronomy) and landmark
-# craters used for orientation. Longitude is degrees EAST (355.23E = 4.77W).
-#
+# Candidate landing sites from Yang et al. 2026, Nature Astronomy 10, 644-654
+# (doi:10.1038/s41550-026-02790-0), read off their Fig. 5 by the project author:
+#   LS1 = red star   (Fig. 5a)  11.43 N, 4.24 W
+#   LS2 = purple star(Fig. 5b)  12.41 N, 3.44 W
+#   LS3 = blue star  (Fig. 5c)  12.16 N, 4.22 W
+#   LS4 = green star (Fig. 5d)  10.43 N, 4.03 W
+# Longitude is degrees EAST in this file: 4.24 W = 360 - 4.24 = 355.76 E.
 # Landmark craters come from the paper's Supplementary Table 1.
-# site3 is derived from the paper text ("~6 km east of Bode C crater");
-# 6 km at 12N equals 6/30.32 = 0.198 deg of longitude.
-# site1, site2 and site4 still need to be read off Fig. 5 (each panel is a
-# local map with coordinate axes) - fill lon/lat and delete the note.
 label,lon,lat,note
 Bode_C,355.23,12.22,landmark; supplement: 12.22N 4.77W
 Fresh_crater,355.57,11.46,landmark; supplement: 11.46N 4.43W
-site3,355.43,12.22,APPROX ~6 km east of Bode C (derived); verify on Fig. 5c
-site1,,,placeholder: N of large crater wall at Sinus Aestuum / DMD boundary (Fig. 5a)
-site2,,,placeholder: S of Rima Bode II mare unit, high-Th basalt (Fig. 5b)
-site4,,,placeholder: NW of Rima Bode I basalt unit (Fig. 5d)
+LS1,355.76,11.43,Fig. 5a red star (11.43N 4.24W)
+LS2,356.56,12.41,Fig. 5b purple star (12.41N 3.44W)
+LS3,355.78,12.16,Fig. 5c blue star (12.16N 4.22W)
+LS4,355.97,10.43,Fig. 5d green star (10.43N 4.03W)

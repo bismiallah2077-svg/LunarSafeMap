@@ -26,3 +26,25 @@ Crater_review_map_miss,outputs/week6/review_miss_map.png,750756,4ce9f44393fed995
 Crater_size_sweep_05,outputs/week6/catalog_metrics_md0.5.csv,215,02a9924353fc3df350f87128a69ff5ab1655dbf91cf5c8060a562265cc494c90,Detection metrics with the size filter lowered to 0.5 km
 Crater_size_sweep_03,outputs/week6/catalog_metrics_md0.3.csv,214,f9027411134de0d214e811fc32b1b0bfa4fa41ccc29e9eed06d40bfaa337e156,Detection metrics with the size filter lowered to 0.3 km
 Crater_sample_tiles,outputs/week6/sample_tiles.png,640979,84757fc6106e480a503ae34212321aaac06df5b3f8506024edba8a578a88ce56,Teaching figure: input DEM / label / prediction for three contrasting tiles
+Suitability_equal,outputs/week7/suitability_equal.tif,31495672,c78a8995c2d8d8da44dd5e56425e1d2f360928856dc74553a95c7899f2d63e36,Suitability S (0-1) for the equal weights; SLDEM 59.2 m grid
+Suitability_summary_equal,outputs/week7/suitability_summary_equal.csv,302,19cc7a0d13fbd404127748c121640a35bdbb9f6ca2f2ebca316687b65c9dbfba,Weights, thresholds, class fractions and candidate count for equal
+Candidate_sites_equal,outputs/week7/candidate_sites_equal.geojson,3619,68e9cb52a1ce6a190d8afdb5b3613781f37bfcaaf226019ac549cba23aae5e4a,Top non-overlapping 5 km candidate sites, ranked by mean S (equal)
+Literature_comparison_equal,outputs/week7/literature_comparison_equal.csv,491,b99c34c4682670e840ad59fd32ce70ac957892ac56c2cf169c26931ace1e5161,Suitability of the paper's LS1-LS4 at the same 5 km window definition (equal)
+Suitability_entropy,outputs/week7/suitability_entropy.tif,31495672,afad6a12fd0bb8d47857a04594dc5dbc235603e6f2b2d7c28df763ab32012529,Suitability S (0-1) for the entropy weights; SLDEM 59.2 m grid
+Suitability_summary_entropy,outputs/week7/suitability_summary_entropy.csv,302,7d7ae99adde27c358ab211d104b408f459858794674990477de8428f585636cf,Weights, thresholds, class fractions and candidate count for entropy
+Candidate_sites_entropy,outputs/week7/candidate_sites_entropy.geojson,3617,e60075b8f78b0fdcfb6e8464df30d26e5b0b09d94c5bc7231a3663e033fed77f,Top non-overlapping 5 km candidate sites, ranked by mean S (entropy)
+Literature_comparison_entropy,outputs/week7/literature_comparison_entropy.csv,488,79854c27c75480370b7de540deb8457fddbecbc9a273033f621cfe572a6e6f3d,Suitability of the paper's LS1-LS4 at the same 5 km window definition (entropy)
+Suitability_calib50_95,outputs/week7/suitability_calib50_95.tif,31495672,9b43e68d6a0ea6a2823012046dc9709e51d2d34fdb2beab88a622073e9fa5bec,Suitability S (0-1) for the calib50_95 weights; SLDEM 59.2 m grid
+Suitability_summary_calib50_95,outputs/week7/suitability_summary_calib50_95.csv,363,f8b349580ab58428ad0e043ec5d2cb68d71b9b307e59615e1d9b7a5eadf80a60,Weights, thresholds, class fractions and candidate count for calib50_95
+Candidate_sites_calib50_95,outputs/week7/candidate_sites_calib50_95.geojson,3628,a576a428af75fcb07c727729462acb5aa65e4d82b222a78e2a1de46196ffb3e4,Top non-overlapping 5 km candidate sites, ranked by mean S (calib50_95)
+Literature_comparison_calib50_95,outputs/week7/literature_comparison_calib50_95.csv,490,756324035c88292df54b111554eb5c54ac24f5d8b8adac7751189eac4588d559,Suitability of the paper's LS1-LS4 at the same 5 km window definition (calib50_95)
+Suitability_ahp,outputs/week7/suitability_ahp.tif,31495672,da8f7c684cf55bf5a0998d65577269386dab3eba2092bb742bb304e1145a1e95,Suitability S (0-1) for the ahp weights; SLDEM 59.2 m grid
+Suitability_summary_ahp,outputs/week7/suitability_summary_ahp.csv,297,1e3d5470ec7c041ea5c840e64d664f5fc3a54fbf9afca22f32a0ab7588803956,Weights, thresholds, class fractions and candidate count for ahp
+Candidate_sites_ahp,outputs/week7/candidate_sites_ahp.geojson,3631,1ca52485e3c96a804b27639851982219b3a7cfcefc1b0e5a21e0afacabaa4922,Top non-overlapping 5 km candidate sites, ranked by mean S (ahp)
+Literature_comparison_ahp,outputs/week7/literature_comparison_ahp.csv,491,60f2743d1d68d04f10d3d55100a58c574ab77eb60c135b920036432c53c02947,Suitability of the paper's LS1-LS4 at the same 5 km window definition (ahp)
+Hazard_slope,outputs/week7/hazard_slope.tif,31495672,3a312a885003cfc8c719cc97a1713e981002241ceb533a14b1f308e5aa368102,Slope hazard layer, 0-1 ramp 5-15 deg
+Hazard_roughness,outputs/week7/hazard_roughness.tif,31495672,97523646a9c5e83a6466ce3f2dcd9fb5cfc6f5d7fc824a73bb8f5473d441458c,Roughness hazard layer, 0-1 ramp 1-5 m
+Hazard_crater,outputs/week7/hazard_crater.tif,31495672,5da1780bd3706ec3f876c90eda0992a18fb204213d60ffd8854a3ab9de18a853,Crater hazard layer: 1 inside a mapped crater, decays over a 1 km rim buffer
+Suitability_map,outputs/week7/suitability_map.png,3379466,4af4cc9979f3df8d59aeb1c620de9e24d2e01d7cd4c79aab84064f2844bf6aa2,Six-panel figure: hazard layers, S, classes, histogram
+Config_AHP_matrix,configs/ahp_matrix.csv,1158,938a6fef9bb9126af929029e17df08c39e7b3086dcb5ca7962e989874f4c8df9,Author's pairwise judgement (2026-10-02): weights 0.550/0.210/0.240, CR 0.0157
+Config_landing_sites,configs/landing_sites.csv,826,cd1cdec950b1851b238b80a98fa9f546deed2d064405d9b162cd9d516698b0b0,Paper LS1-LS4 coordinates read from Fig. 5, plus landmarks

@@ -1,0 +1,2 @@
+tag,w_slope,w_roughness,w_crater,slope_safe,slope_danger,rough_safe,rough_danger,calibrate,rim_buffer_m,n_craters,valid_px,S_mean,S_p50,S_p90,safe_pct,caution_pct,danger_pct,n_candidates
+entropy,0.3428,0.1578,0.4994,5.0,15.0,1.0,5.0,physical,1000.0,632,7869953,0.2242,0.1291,0.5664,75.6,17.25,7.15,3

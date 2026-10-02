@@ -1,0 +1,2 @@
+tag,w_slope,w_roughness,w_crater,slope_safe,slope_danger,rough_safe,rough_danger,calibrate,rim_buffer_m,n_craters,valid_px,S_mean,S_p50,S_p90,safe_pct,caution_pct,danger_pct,n_candidates
+calib50_95,0.3333,0.3333,0.3333,4.108055046639146,14.264902380131186,3.5574647027234505,12.228683901480796,"50,95",1000.0,632,7869953,0.1757,0.0494,0.5647,78.45,14.07,7.48,5
