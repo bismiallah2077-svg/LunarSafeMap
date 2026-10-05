@@ -1,17 +1,13 @@
-
-**LICENSE**
-
-```text
 MIT License
 
-Copyright (c) 2026 zwx
+Copyright (c) 2026 zwx (LunarSafeMap)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files, to deal in the Software
-without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the
-Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -23,3 +19,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Third-party data and software keep their own terms: LROC and SLDEM data are
+distributed by PDS/USGS, the Robbins (2018) crater catalogue by the USGS
+Astrogeology Science Center, ASP by NASA Ames, and ISIS by USGS.  The paper by
+Yang et al. (2026, Nature Astronomy, doi:10.1038/s41550-026-02790-0) is cited
+as a reference and is not redistributed here.

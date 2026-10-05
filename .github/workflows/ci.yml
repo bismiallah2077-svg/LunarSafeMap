@@ -1,0 +1,26 @@
+name: repository checks
+
+# The scientific tests need the full conda environment (GDAL, torch, scipy) and
+# the derived data products, which are deliberately not in the repository.
+# CI therefore runs the checks that need no data and no third-party packages:
+# the script index integrity test and a syntax check of every script.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  index-and-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: every tracked script must appear in docs/script_index.md
+        run: python tests/test_script_index.py
+      - name: syntax check
+        run: |
+          python -m compileall -q scripts tests
+          echo "all scripts compile"

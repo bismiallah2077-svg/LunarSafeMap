@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use this code or its derived products, please cite it as below."
+title: "LunarSafeMap: terrain safety and suitability assessment of the Rimae Bode lunar landing region"
+abstract: >-
+  An undergraduate research repository that builds a reproducible multi-criteria
+  safety assessment for the Rimae Bode candidate lunar landing region
+  (353-359 E, 8-13 N). It covers PDS data handling and ISIS/ASP stereo
+  photogrammetry, multi-scale terrain metrics, automatic crater detection with a
+  PyTorch U-Net validated against the Robbins (2018) catalogue by manual sampling,
+  an AHP-weighted suitability model, and a Monte Carlo uncertainty analysis of the
+  resulting site ranking.
+type: software
+authors:
+  - family-names: "zwx"
+    given-names: "LunarSafeMap author"
+    alias: "bismiallah2077-svg"
+    website: "https://github.com/bismiallah2077-svg"
+repository-code: "https://github.com/bismiallah2077-svg/LunarSafeMap"
+url: "https://github.com/bismiallah2077-svg/LunarSafeMap"
+license: MIT
+version: 1.0.0
+date-released: "2026-10-05"
+keywords:
+  - planetary remote sensing
+  - lunar landing site selection
+  - digital elevation model
+  - stereo photogrammetry
+  - crater detection
+  - multi-criteria decision analysis
+  - uncertainty analysis
+references:
+  - type: article
+    title: "Geology of Rimae Bode region as priority site candidate for China's first crewed lunar mission"
+    authors:
+      - family-names: "Yang"
+        given-names: "Maosheng"
+      - family-names: "Huang"
+        given-names: "Jun"
+      - family-names: "Iqbal"
+        given-names: "Wajiha"
+    journal: "Nature Astronomy"
+    volume: 10
+    issue: 5
+    start: 644
+    end: 654
+    year: 2026
+    doi: "10.1038/s41550-026-02790-0"
+  - type: article
+    title: "A new global database of lunar impact craters >1-2 km: 1. Crater locations, diameters, and ages"
+    authors:
+      - family-names: "Robbins"
+        given-names: "Stuart J."
+    journal: "Journal of Geophysical Research: Planets"
+    volume: 124
+    issue: 3
+    start: 871
+    end: 892
+    year: 2019
+    doi: "10.1029/2018JE005796"

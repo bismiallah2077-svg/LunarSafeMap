@@ -1,0 +1,44 @@
+# LunarSafeMap is a research repository, not a distributed Python package: the
+# code lives in scripts/ and is run as command line tools (see docs/script_index.md).
+# This file therefore exists for tooling and metadata only.
+
+[project]
+name = "lunarsafemap"
+version = "1.0.0"
+description = "Terrain safety and suitability assessment of the Rimae Bode lunar landing region"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "LunarSafeMap author", email = "bismiallah2077-svg@users.noreply.github.com" }]
+keywords = [
+    "planetary-remote-sensing",
+    "lunar-landing-site",
+    "dem",
+    "stereo-photogrammetry",
+    "crater-detection",
+    "uncertainty-analysis",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+
+[project.urls]
+Homepage = "https://github.com/bismiallah2077-svg/LunarSafeMap"
+
+[tool.pytest.ini_options]
+# the heavy tests need the conda environment (GDAL, torch); the index test uses
+# only the standard library and runs anywhere
+python_files = ["test_*.py"]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 96
+target-version = "py312"
+exclude = ["data", "outputs", "examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]

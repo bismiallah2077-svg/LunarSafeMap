@@ -1,57 +1,66 @@
-
-**README_CN.md**
-
-```markdown
 # LunarSafeMap
 
-LunarSafeMap 是一个面向行星遥感与深空测绘方向的本科科研训练项目。
+面向月球候选着陆区的多源遥感地形安全性与科学价值评价（本科科研训练项目）。
+研究对象为 Yang et al. (2026, *Nature Astronomy* 10, 644–654,
+doi:10.1038/s41550-026-02790-0) 提出的 Rimae Bode 载人登月候选区
+（353–359°E, 8–13°N）。英文版见 [README.md](README.md)。
 
-当前阶段的目标是复现 NASA Ames Stereo Pipeline（ASP）的月球立体测图流程，使用 LRO NAC 月球立体影像生成点云、DEM、正射影像和三角交会误差图。
+## 核心科学问题
 
-## 当前进展
+在不同空间分辨率、地形指标与权重设置下，月球候选着陆区的安全性评价结果是否稳定？
+自动撞击坑识别能否提高安全区划分的客观性与可复现性？
 
-已经完成：
+三个假设：**H1 分辨率效应**（粗 DEM 高估安全区）、**H2 多源融合效应**
+（联合评价优于单一坡度）、**H3 评价不确定性**（固定权重得到的最佳点可能不稳定）。
 
-- WSL2 Ubuntu 24.04 环境配置
-- Python 遥感与地理空间环境搭建
-- NASA Ames Stereo Pipeline 3.7.0 安装
-- ISIS 10.0.0 环境验证
-- LRO NAC 月球快速立体案例复现
-- 点云、DEM、正射影像、交会误差图生成
-- 初步记录 DEM 与误差图统计信息
+## 主要结论（第 1–9 周）
 
-## 环境
+| 环节 | 结论 |
+|---|---|
+| 撞击坑识别 | 测试区像素 IoU 0.298 / F1 0.460，检测级 F1 0.488；≥5 km 的 8 个坑全部检出且零虚警 |
+| 人工核查修正 | 随机抽样 40 个虚警 → **精度 0.451 修正为 0.726（0.644–0.807）**；40 个漏检 → **可探测召回 0.717（0.655–0.788）** |
+| 适宜性模型 | 等权安全区 58.4 %；作者 AHP 权重（CR = 0.0157）70.7 %；最优候选点 (353.76°E, 11.08°N) 在所有参数化下一致 |
+| 文献验证 | 论文四个候选点中 **LS3 在四种参数化下都最安全**（80.6–86.2 分位），**LS2 都最危险**（0.7–1.9 分位） |
+| 不确定性 | 安全区比例 5–95 % 区间 **0.38–0.93**，但排序稳健（最优站点每次抽样分位 ≥ 99） |
+| 不确定性来源 | **阈值主导**（组间极差 0.15–0.18）≫ 权重 > 撞击坑目录（0.03） |
+| 空间格局 | 仅 **26.1 %** 区域在任何参数下都安全，**35.2 %** 取决于参数 |
 
-### Python 遥感环境
+完整的科学讨论见 [docs/week9_discussion_CN.md](docs/week9_discussion_CN.md)。
 
-用于后续栅格处理、地形分析、GIS 操作和机器学习实验。
+## 仓库结构
+
+```text
+scripts/    54 个处理脚本（按周编号，完整索引见 docs/script_index.md）
+docs/       20 篇方法/复盘文档（中文为主）
+configs/    研究区参数、论文候选点、AHP 判断矩阵
+tests/      6 个自测脚本（含索引完整性检查）
+outputs/    各周产物（CSV / GeoJSON / PNG；大栅格不进 Git，仅登记哈希）
+data/       本地数据（原始与中间数据不入库）
+```
+
+## 快速开始
 
 ```bash
+conda env create -f environment.yml          # 需要 GDAL 的地理空间环境（lunarsafe）
 conda activate lunarsafe
-主要工具包括 Rasterio、GDAL、GeoPandas、NumPy、SciPy、OpenCV、scikit-image 等。
-ASP 环境
-用于月球立体测图、点云生成和 DEM 生产。
-conda activate asp
-已验证版本：
-NASA Ames Stereo Pipeline 3.7.0
-USGS ISIS 10.0.0
-GDAL 3.12.2
-LRO NAC 快速立体测图基线
-当前第一个基线案例来自 ASP 官方 LRO NAC 月球快速示例。
-运行脚本：
-scripts/run_lronac_quick_example.sh
-关键输出：
-run-PC.tif                 点云
-run-DEM.tif                数字高程模型
-run-DRG.tif                正射影像
-run-IntersectionErr.tif    三角交会误差图
-后续研究方向
-下一步将从“工具复现”推进到“研究问题验证”：
-DEM 质量检查
-坡度与粗糙度计算
-空间分辨率敏感性分析
-月球候选着陆区地形安全性评价
-地形误差与评价结果不确定性分析
-数据管理原则
-不把大型行星数据直接提交到 GitHub。
-原始影像、ISIS 数据、中间结果、ASP 输出和模型权重应保存在本地数据目录或移动硬盘中，仓库只记录数据来源、处理脚本、参数和小型说明文件。
+bash scripts/run_all_tests.sh                # 运行全部自测
+
+# 复现第 7–9 周的核心结果（不需要重新下载原始数据）
+python scripts/week7_suitability.py --weights 0.5499,0.2098,0.2402 --tag ahp
+python scripts/week7_compare_literature.py --tag ahp
+python scripts/week8_montecarlo.py --n 200 --concentration 15 --tag k15
+python scripts/week9_case_studies.py --tag k15
+```
+
+完整的复现入口（含 ISIS/ASP 立体测图与神经网络训练）见
+[docs/reproduction.md](docs/reproduction.md)；工作流图见 [docs/workflow.md](docs/workflow.md)。
+
+## 数据管理原则
+
+大型行星数据（PDS 原始影像、ISIS cube、ASP 输出、模型权重）**不提交到 Git**；
+仓库只记录数据来源、产品清单（含大小与 SHA-256）、处理脚本与参数。
+溯源信息见 `data/metadata/data_manifest.csv` 与 `data/metadata/derived_products.csv`。
+
+## 引用
+
+引用方式见 [CITATION.cff](CITATION.cff)。代码采用 MIT 许可；第三方数据与软件遵循各自条款。

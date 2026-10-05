@@ -61,8 +61,8 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
   residual vs intersection error — [scripts/week5_error_spatial.py](scripts/week5_error_spatial.py)
 - **Result**: at 60 m support, SLDEM calls 60 % of the scene safe but only 37 %
   when restricted to the NAC footprint; coarse DEMs over-estimate safe area
-- See [docs/progress_review_weeks1_6.md](docs/progress_review_weeks1_6.md) for the
-  plan-vs-actual review
+- See [docs/progress_review.md](docs/progress_review.md) for the plan-vs-actual
+  review of weeks 1-9
 
 ### Week 6: Automatic crater detection (PyTorch U-Net baseline)
 

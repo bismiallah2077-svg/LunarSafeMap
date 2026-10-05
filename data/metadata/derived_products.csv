@@ -61,3 +61,5 @@ MC_summary_k60,outputs/week8/mc_summary_k60.png,1623005,e785bc69df8f791aa2519e73
 Case_study_sites,outputs/week9/case_sites.csv,563,0fc28dd418e45a85cd7393c3b6069c0493773d68399045d5f96d31e3a41522aa,Physical terrain facts (slope, roughness, craters) inside the 5 km window of every named site
 Case_study_regions,outputs/week9/case_regions.csv,814,3c79f5edfdaa3c3457761c5c1c0916fda030c9d905ee252bdf95bfcb64e92bae,Largest parameter-sensitive, robustly-safe and never-safe regions with their terrain medians
 Case_study_figure,outputs/week9/case_studies.png,3631726,b7be2b6c0dee07296f41fd9d82aaa3a6d8d124bc222186e5589d5aed6e521083,Suitability map and P(safe) map with all sites annotated
+Technical_report_v1,docs/LunarSafeMap_technical_report_v1.0.docx,11130986,bf9f8b9ca872c05f03578b48115b800d1327ddf35ac3750b0f66507f427b1cec,Technical report v1.0 (17 pages): methods, results, discussion, limitations, appendix
+NAC_DEM_preview,outputs/week4/nac_dem_preview.png,90547,32c4a1f6f400fbd230f081debdea8e718fbb260291db8b70c64a2476f0ef25c2,Preview figure of the NAC stereo DEM (3.283 m/px)

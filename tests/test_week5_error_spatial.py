@@ -8,7 +8,11 @@ known analytically.  Run with:  python tests/test_week5_error_spatial.py
 import importlib.util, sys, types
 import numpy as np
 
-MOD = r"C:\Users\zwx\Documents\Codex\2026-08-14\w\scripts\week5_error_spatial.py"
+# resolve the module relative to this test, so the suite runs on any machine
+# (an earlier version hard-coded a Windows path from the authoring workflow)
+from pathlib import Path
+
+MOD = str(Path(__file__).resolve().parents[1] / "scripts" / "week5_error_spatial.py")
 
 osgeo = types.ModuleType("osgeo")
 gdal = types.ModuleType("osgeo.gdal")
