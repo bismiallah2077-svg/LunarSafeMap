@@ -217,6 +217,34 @@ def main(argv=None):
     print("  ONLY SLDEM safe (coarse product misses a hazard): {:5.2f} %".format(st["only_b_pct"]))
     print("  ONLY NAC safe   (coarse product is over-cautious) : {:5.2f} %".format(st["only_a_pct"]))
     rows = [dict(st, cell_m=round(cell_m, 1), source="native metrics")]
+
+    # --- matched support: both DEMs are first averaged to the SAME 237 m cells,
+    #     so the metric has the same physical support in both; any remaining
+    #     difference comes from the information content of the source data
+    src = TMP / "nac_dem_on_sldem.tif"
+    warp_like(NAC_DEM, ref, src, resample="average")
+    ds = gdal.Open(str(src))
+    zn_w = ds.GetRasterBand(1).ReadAsArray().astype("float32")
+    ds = None
+    zn_w[zn_w == -9999.0] = np.nan
+    zn_c, vn_c = block_mean_field(zn_w, np.isfinite(zn_w), f)
+    met_n, eff_n, good_n = w5.metrics_at_scale(np.nan_to_num(zn_c), vn_c, cell_m, cell_m)
+    s_nac_m, safe_nac_m = hazard_from(met_n["slope"], met_n["roughness"], good_n)
+    ny2 = min(s_nac_m.shape[0], s_sldem.shape[0] // f)
+    nx2 = min(s_nac_m.shape[1], s_sldem.shape[1] // f)
+    sl_m, ok_m = block_mean_field(np.nan_to_num(s_sldem), good, f)
+    valid_m = good_n[:ny2, :nx2] & ok_m[:ny2, :nx2] & vn_c[:ny2, :nx2]
+    a_m = safe_nac_m[:ny2, :nx2]
+    b_m = (sl_m[:ny2, :nx2] < SAFE_EDGE) & ok_m[:ny2, :nx2]
+    st_m = flip_stats(a_m, b_m, valid_m)
+    print("")
+    print("=== matched support: both DEMs averaged to {:.0f} m before the metrics ===".format(cell_m))
+    print("  cells            : {:,}".format(st_m["n"]))
+    print("  safe under NAC   : {:5.2f} %".format(st_m["safe_a_pct"]))
+    print("  safe under SLDEM : {:5.2f} %".format(st_m["safe_b_pct"]))
+    print("  only SLDEM safe  : {:5.2f} %".format(st_m["only_b_pct"]))
+    print("  only NAC safe    : {:5.2f} %".format(st_m["only_a_pct"]))
+    rows.append(dict(st_m, cell_m=round(cell_m, 1), source="matched support"))
     with (OUT / "h1_nac_vs_sldem.csv").open("w", newline="") as fh:
         wr = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         wr.writeheader()
