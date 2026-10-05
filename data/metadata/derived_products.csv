@@ -58,3 +58,6 @@ MC_draws_k60,outputs/week8/mc_draws_k60.csv,15455,291c0157cc01653dffdd176e96c5ec
 MC_prob_safe_k60,outputs/week8/mc_prob_safe_k60.tif,31495665,59aef4690c988a913cf778d1f9649e8aaa102d26151806c9b41508753ba98b5b,Per-pixel probability of being classified safe over 200 draws (k60)
 MC_prob_danger_k60,outputs/week8/mc_prob_danger_k60.tif,31495665,378aa8ab842607b49678366bb5a5c9d4721a0207673b65553a8c82f1855b3e4e,Per-pixel probability of being classified danger over 200 draws (k60)
 MC_summary_k60,outputs/week8/mc_summary_k60.png,1623005,e785bc69df8f791aa2519e73d90e716623a890d9b99be39cdaf9d03dd6d0f620,Four-panel Monte Carlo summary figure (k60)
+Case_study_sites,outputs/week9/case_sites.csv,563,0fc28dd418e45a85cd7393c3b6069c0493773d68399045d5f96d31e3a41522aa,Physical terrain facts (slope, roughness, craters) inside the 5 km window of every named site
+Case_study_regions,outputs/week9/case_regions.csv,814,3c79f5edfdaa3c3457761c5c1c0916fda030c9d905ee252bdf95bfcb64e92bae,Largest parameter-sensitive, robustly-safe and never-safe regions with their terrain medians
+Case_study_figure,outputs/week9/case_studies.png,3631726,b7be2b6c0dee07296f41fd9d82aaa3a6d8d124bc222186e5589d5aed6e521083,Suitability map and P(safe) map with all sites annotated

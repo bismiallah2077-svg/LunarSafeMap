@@ -137,6 +137,25 @@ LunarSafeMap is an undergraduate research project for learning and reproducing p
 - Only **26 %** of the study area is safe under *every* parameter combination and
   **35 %** is parameter-dependent (0.1 < P(safe) < 0.9) —
   [docs/week8_uncertainty.md](docs/week8_uncertainty.md)
+
+### Week 9: Interpretation, failure cases and a discussion draft
+
+- Quantitative case studies — [scripts/week9_case_studies.py](scripts/week9_case_studies.py):
+  * **why LS2 disagrees with us**: inside its 5 km window the median slope is
+    **9.0°** and the median roughness **7.8 m**, 2.5–3.9× the other three paper
+    sites, with two mapped craters (nearest 1.55 km). The disagreement is a
+    reproducible terrain fact, not model noise
+  * **parameter-sensitive terrain is terrain near the thresholds**: the largest
+    sensitive region (7,439 km²) has median slope 6.2° / roughness 5.3 m, i.e.
+    inside the perturbed threshold boxes, while the largest robustly safe region
+    (2,332 km², containing our best site) sits at 1.6° / 1.6 m, far from them
+  * our best site is smoother than every paper site: median slope 1.5°
+    (p95 3.8°), median roughness 1.4 m
+- Paper-style draft with methods, results, discussion, limitations, transferability
+  and an English abstract: [docs/week9_discussion_CN.md](docs/week9_discussion_CN.md)
+- Honest limitation list: only 3 of the planned 5 factors, non-perfect crater
+  layer, **H1 (resolution) still untested** because the NAC strip overlaps none of
+  the top candidate sites, and thresholds dominate the uncertainty
 ## Environments
 
 ### Python geospatial environment
