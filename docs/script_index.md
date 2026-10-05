@@ -121,6 +121,12 @@
 | `build_technical_report.py` | 由仓库结果生成技术报告 DOCX（17 页、7 张图、图片带 alt 文本，可重复生成） |
 | `week10_resolution_effect.py` | 假设 H1：同一 DEM 逐级聚合（59 m → 948 m）的分辨率效应检验（8 项自测） |
 
+## 第 11 周：为米级验证重新排序候选点
+
+| 脚本 | 作用 |
+|---|---|
+| `week11_nac_footprint_sites.py` | 把 3–5 km 窗口限制在 NAC 立体覆盖范围内重新排序候选点，量化"要求米级验证"的代价（5 项自测） |
+
 | 文件 | 作用 |
 |---|---|
 | `tests/test_week5_risk.py` | 风险图数值自测 |
